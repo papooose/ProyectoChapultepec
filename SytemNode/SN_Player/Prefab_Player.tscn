@@ -1,0 +1,73 @@
+[gd_scene load_steps=11 format=3 uid="uid://bg10c5o03uixf"]
+
+[ext_resource type="Script" path="res://Scripts/Script_SysFSM/Script_FSM.gd" id="1_6f0a8"]
+[ext_resource type="Script" path="res://Scripts/Scripts_SysPlayer/Scritp_Player_Mover.gd" id="1_23hgj"]
+[ext_resource type="Script" path="res://Scripts/Scripts_SysPlayer/Script_Player_Manager.gd" id="1_q7hbd"]
+[ext_resource type="Script" path="res://Scripts/Scripts_SysPlayer/Script_Player_State_Idle.gd" id="2_l62w3"]
+[ext_resource type="Script" path="res://Scripts/Scripts_SysPlayer/Script_Player_State_Moving.gd" id="3_j7md2"]
+[ext_resource type="Script" path="res://Scripts/Scripts_SysPlayer/Script_Player_State_Paused.gd" id="4_k652i"]
+[ext_resource type="Script" path="res://Scripts/Scripts_SysPlayer/Script_Player_State_Talking.gd" id="5_u8ocn"]
+[ext_resource type="Script" path="res://Scripts/Scripts_SysPlayer/Script_Player_Input.gd" id="6_748kp"]
+[ext_resource type="Texture2D" uid="uid://divnhcor2h455" path="res://Assets/Assets_UI/Assets_UI_Crosshair_1.png" id="9_bmmfb"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_s773y"]
+
+[node name="SN_Player" type="Node3D"]
+script = ExtResource("1_q7hbd")
+
+[node name="Player_Body" type="CharacterBody3D" parent="."]
+script = ExtResource("1_23hgj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player_Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_s773y")
+
+[node name="Axis_H" type="Node3D" parent="Player_Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="Axis_V" type="Node3D" parent="Player_Body/Axis_H"]
+
+[node name="Head_Holder" type="Node3D" parent="Player_Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="Player_Camera" type="Camera3D" parent="Player_Body/Head_Holder"]
+
+[node name="Player_Foot" type="Node3D" parent="Player_Body"]
+
+[node name="Finte_state_machine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+script = ExtResource("1_6f0a8")
+current_state = NodePath("../Player_States/state_player_idle")
+
+[node name="Player_States" type="Node" parent="."]
+
+[node name="state_player_idle" type="Node" parent="Player_States" node_paths=PackedStringArray("player_input")]
+script = ExtResource("2_l62w3")
+player_input = NodePath("../../Input_player")
+
+[node name="state_player_moving" type="Node" parent="Player_States"]
+script = ExtResource("3_j7md2")
+
+[node name="state_player_paused" type="Node" parent="Player_States"]
+script = ExtResource("4_k652i")
+
+[node name="state_player_talking" type="Node" parent="Player_States"]
+script = ExtResource("5_u8ocn")
+
+[node name="Input_player" type="Node" parent="."]
+script = ExtResource("6_748kp")
+
+[node name="Player_Crosshair" type="CanvasLayer" parent="."]
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Player_Crosshair"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="Player_Crosshair/AspectRatioContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("9_bmmfb")
