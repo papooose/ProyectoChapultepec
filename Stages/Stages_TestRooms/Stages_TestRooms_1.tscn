@@ -1,7 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://dbg8u27tb8mdv"]
+[gd_scene load_steps=11 format=3 uid="uid://dbg8u27tb8mdv"]
 
 [ext_resource type="PackedScene" uid="uid://bg10c5o03uixf" path="res://SytemNode/SN_Player/Prefab_Player.tscn" id="1_sgjlr"]
 [ext_resource type="Script" path="res://Scripts/Scripts_SysSettings/Script_SysSettings_Video.gd" id="2_a3suy"]
+[ext_resource type="PackedScene" uid="uid://dt4qvdff6rc20" path="res://SytemNode/SN_UI/SN_PauseScreen.tscn" id="3_a7fsd"]
+[ext_resource type="Script" path="res://Scripts/Scripts_SysSettings/Script_Settings_Input.gd" id="4_lxesi"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ko2pv"]
 albedo_color = Color(0.234228, 0.461864, 0.2422, 1)
@@ -41,7 +43,8 @@ mesh = SubResource("PlaneMesh_dowlg")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_l5840")
 
-[node name="SN_Player" parent="." instance=ExtResource("1_sgjlr")]
+[node name="SN_Player" parent="." node_paths=PackedStringArray("pasue_input") instance=ExtResource("1_sgjlr")]
+pasue_input = NodePath("../input_setting")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1uf30")
@@ -52,3 +55,9 @@ light_energy = 2.521
 
 [node name="Settings_Video" type="Node" parent="."]
 script = ExtResource("2_a3suy")
+
+[node name="SN_PauseScreen" parent="." instance=ExtResource("3_a7fsd")]
+
+[node name="input_setting" type="Node" parent="." node_paths=PackedStringArray("pause_UI")]
+script = ExtResource("4_lxesi")
+pause_UI = NodePath("../SN_PauseScreen")

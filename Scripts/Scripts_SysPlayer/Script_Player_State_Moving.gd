@@ -27,6 +27,7 @@ func _connect_signals()->void:
 func _disconect_signals()->void:
 	player_Input.signal_action_forward.disconnect(_move_forward)
 func _enanble_proceess()->void:
+	player_body._enable_camera_mov()
 	set_physics_process(true)
 	set_process(true)
 func _disable_process()->void:

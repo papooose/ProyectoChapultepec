@@ -12,15 +12,16 @@ const THRUST_FRICTION: float = 5.0
 const MAX_SPEED: float =50.0
 const MIN_SPEED: float =0.0
 #endregion
-
-
+#-----------------------------------------------------------------------------------------------
 #region  Camera vars
 @onready var player_camera: Camera3D = $Head_Holder/Player_Camera
+@export var axis_arms: Node3D
+
 @onready var h_axis: Node3D = $Axis_H
 @onready var v_axis: Node3D = $Axis_H/Axis_V
 
 var _target_h_rot:float
-var _targe_v_rot:float
+var _target_v_rot:float
 
 const MOUSE_SENSITIVITY:float = 0.09 #This value shouldnt be local, try using settings value
 var lerp_speed: float = 2.0
@@ -29,9 +30,8 @@ var  camera_rot_threshold = MAX_CAMERA_ROT
 const MAX_CAMERA_ROT: float = 98.0
 const MIN_CAMERA_ROT: float = 30.0
 #endregion
-
+#-----------------------------------------------------------------------------------------------
 #region Camera FX vars
-
 const BOB_FREQ: float = 0.5
 const BOB_AMP: float = 0.3
 var bob_time:float = 0.0
@@ -39,14 +39,12 @@ var bob_time:float = 0.0
 const FOV_BASE:float = 75.0 #This value shouldnt be local, try using and external settings value
 const FOV_CHANGE: float = 1.5
 #endregion
-
+#-----------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------
 #region Func Process
 func _process(delta: float) -> void:
 	_handle_camera_rot(delta)
-	if(Input.is_action_just_pressed("ui_accept")):
-		_limit_camera_rot()
-	if(Input.is_action_just_pressed("ui_cancel")):
-		_unlimit_camera_rot()
 func _physics_process(delta: float) -> void:
 	_handle_FOV(delta)
 	velocity.x = move_dir.x * move_speed
@@ -55,7 +53,9 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	_handle_headbob(delta)
 #endregion
-
+#-----------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------
 #region Func CameraFX
 func _handle_headbob(delta)->void:
 	bob_time += delta*velocity.length() * float(is_on_floor())
@@ -73,8 +73,9 @@ func _handle_FOV(delta)->void:
 		player_camera.fov = lerp(player_camera.fov,target_fov,delta * 8.0)
 	player_camera.fov = lerp(player_camera.fov, FOV_BASE, delta*lerp_speed)
 #endregion
-
-
+#-----------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------
 #region Func CameraMovement
 func _enable_camera_mov()->void:
 	set_process_input(true)
@@ -86,22 +87,28 @@ func _disable_camera_mov()->void:
 	set_process(false)
 
 func _limit_camera_rot()->void:
+	print("limiting Camera Rot")
 	camera_rot_threshold = MIN_CAMERA_ROT
 func _unlimit_camera_rot()->void:
+	print("Unlimiting Camera ROt")
 	camera_rot_threshold = MAX_CAMERA_ROT
 
 func _handle_camera_rot(delta)->void:
 	_target_h_rot = h_axis.rotation.y
-	_targe_v_rot = v_axis.rotation.x
+	_target_v_rot = v_axis.rotation.x
 	
 	player_camera.rotation.y = lerp_angle(player_camera.rotation.y, _target_h_rot, delta*lerp_speed)
-	player_camera.rotation.x = lerp_angle(player_camera.rotation.x, _targe_v_rot, delta*lerp_speed)
+	player_camera.rotation.x = lerp_angle(player_camera.rotation.x, _target_v_rot, delta*lerp_speed)
 	
+	axis_arms.rotation.y = lerp_angle(axis_arms.rotation.y,_target_h_rot,delta*lerp_speed*1.5)
+
+
 func _input(event: InputEvent) -> void:
 	_handle_camera_input(event)
+
 func _handle_camera_input(event)->void:
 	if event is InputEventMouseMotion:
-		event.relative.x = clamp(event.relative.x,-camera_rot_threshold,camera_rot_threshold)
+		event.relative.x = clamp(event.relative.x,-98,98)
 		
 		h_axis.rotate_y(deg_to_rad(-event.relative.x * MOUSE_SENSITIVITY))
 		v_axis.rotate_x(deg_to_rad(-event.relative.y * MOUSE_SENSITIVITY))
@@ -110,4 +117,11 @@ func _handle_camera_input(event)->void:
 		v_axis.rotation.y = clamp(v_axis.rotation.y,deg_to_rad(0),deg_to_rad(0))#prevents it from rotation in the y axis
 		v_axis.rotation.x = clamp(v_axis.rotation.x,deg_to_rad(-44),deg_to_rad(44))# prevents it from rotating completely
 		
+#endregion
+#-----------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------
+#region Func Extra Movements
+func _body_stop():
+	move_speed = 0.0
 #endregion

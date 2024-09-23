@@ -6,10 +6,21 @@ signal signal_pausedToMoving
 
 @onready var player_body: Mover_Player = $"../../Player_Body"
 
+
 func _enter_state()->void:
-	pass
+	player_body._disable_camera_mov()
+	player_body._body_stop()
 func _exit_state()->void:
-	pass
+	set_physics_process(false)
+
+
+
+
+
+
+
+
+
 
 func paused_to_idle()->void:
 	signal_pausedToIdle.emit()

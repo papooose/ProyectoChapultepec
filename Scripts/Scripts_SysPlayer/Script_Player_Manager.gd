@@ -3,12 +3,13 @@ class_name Manager_player
 #region External signals
 @export_group("Signal Emitters")
 var Dialogue_manager
-var Pause_manager
+@export var pasue_input: input_settings
 var crosshair_manager
 #endregion
 
 
 @onready var FSM: Finte_state_machine = $Finte_state_machine
+
 
 #region States
 @export_group("States")
@@ -20,9 +21,12 @@ var crosshair_manager
 
 func _ready() -> void:
 	_connect_internal_signals()
-func _connect_external_signals()->void:
-	pass
+	_connect_external_signals()
 
+
+func _connect_external_signals()->void:
+	pasue_input.signal_pause_game.connect(_pause_player)
+	pasue_input.signal_resume_game.connect(_resume_player)
 
 
 func _connect_internal_signals()->void:

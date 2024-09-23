@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://bg10c5o03uixf"]
+[gd_scene load_steps=12 format=3 uid="uid://bg10c5o03uixf"]
 
 [ext_resource type="Script" path="res://Scripts/Script_SysFSM/Script_FSM.gd" id="1_6f0a8"]
 [ext_resource type="Script" path="res://Scripts/Scripts_SysPlayer/Scritp_Player_Mover.gd" id="1_23hgj"]
 [ext_resource type="Script" path="res://Scripts/Scripts_SysPlayer/Script_Player_Manager.gd" id="1_q7hbd"]
 [ext_resource type="Script" path="res://Scripts/Scripts_SysPlayer/Script_Player_State_Idle.gd" id="2_l62w3"]
+[ext_resource type="PackedScene" uid="uid://m3fcaerg6lcf" path="res://Assets/Assets_3DM/3DM_Arms/Assets_3DM_Arm.tscn" id="3_3v6tm"]
 [ext_resource type="Script" path="res://Scripts/Scripts_SysPlayer/Script_Player_State_Moving.gd" id="3_j7md2"]
 [ext_resource type="Script" path="res://Scripts/Scripts_SysPlayer/Script_Player_State_Paused.gd" id="4_k652i"]
 [ext_resource type="Script" path="res://Scripts/Scripts_SysPlayer/Script_Player_State_Talking.gd" id="5_u8ocn"]
@@ -15,8 +16,9 @@
 [node name="SN_Player" type="Node3D"]
 script = ExtResource("1_q7hbd")
 
-[node name="Player_Body" type="CharacterBody3D" parent="."]
+[node name="Player_Body" type="CharacterBody3D" parent="." node_paths=PackedStringArray("axis_arms")]
 script = ExtResource("1_23hgj")
+axis_arms = NodePath("Axis_H/Axis_Arms")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player_Body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -26,6 +28,12 @@ shape = SubResource("CapsuleShape3D_s773y")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="Axis_V" type="Node3D" parent="Player_Body/Axis_H"]
+
+[node name="Axis_Arms" type="Node3D" parent="Player_Body/Axis_H"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.650173, 0)
+
+[node name="Assets_3DM_Arms" parent="Player_Body/Axis_H/Axis_Arms" instance=ExtResource("3_3v6tm")]
+transform = Transform3D(-1, 0, -5.96046e-08, 5.16191e-08, 0.5, -0.866025, 2.98023e-08, -0.866025, -0.5, 1, 0.105543, 0)
 
 [node name="Head_Holder" type="Node3D" parent="Player_Body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
