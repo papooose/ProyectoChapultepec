@@ -7,11 +7,12 @@ signal signal_idleToPause
 
 
 @export var player_input: input_player
-
+@export var player_raycast: raycast_player
 
 
 
 func _enter_state()->void:
+	player_raycast._enable_crosshair()
 	_connect_signals()
 func _exit_state()->void:
 	_disconnect_signals()

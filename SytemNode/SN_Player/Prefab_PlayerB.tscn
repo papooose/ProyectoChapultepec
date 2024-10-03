@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=3 uid="uid://ce7asmyms5ykl"]
+
+[ext_resource type="Script" path="res://Scripts/Scripts_SysPlayerB/Script_PlayerB_Mover.gd" id="1_ep52n"]
+[ext_resource type="Script" path="res://Scripts/Scripts_SysPlayerB/Script_PlayerB_Camera.gd" id="2_074ks"]
+[ext_resource type="Script" path="res://Scripts/Scripts_SysPlayerB/Script_PlayerB_Input.gd" id="3_5pt5g"]
+[ext_resource type="Script" path="res://Scripts/Scripts_SysPlayerB/Script_PlayerB_Raycast.gd" id="3_tc7ve"]
+[ext_resource type="Script" path="res://Scripts/Scripts_SysPlayerB/Script_PlayerB_State_Idle.gd" id="4_ve825"]
+[ext_resource type="Script" path="res://Scripts/Script_SysFSM/Script_FSM.gd" id="4_x5okn"]
+[ext_resource type="Script" path="res://Scripts/Scripts_SysPlayerB/Script_PlayerB_State_Moving.gd" id="5_5fkpx"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_741xb"]
+
+[node name="Prefab_PlayerB" type="Node3D"]
+
+[node name="player_body" type="CharacterBody3D" parent="."]
+script = ExtResource("1_ep52n")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="player_body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_741xb")
+
+[node name="Player_Head" type="Node3D" parent="player_body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="Player_camera" type="Camera3D" parent="player_body/Player_Head"]
+script = ExtResource("2_074ks")
+
+[node name="raycast_player_b" type="RayCast3D" parent="player_body/Player_Head/Player_camera"]
+script = ExtResource("3_tc7ve")
+
+[node name="Axis_H" type="Node3D" parent="player_body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="Axis_V" type="Node3D" parent="player_body/Axis_H"]
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="player_body"]
+
+[node name="input_player_b" type="Node" parent="."]
+script = ExtResource("3_5pt5g")
+
+[node name="Finte_state_machine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+script = ExtResource("4_x5okn")
+current_state = NodePath("../Player_states/state_playerB_idle")
+
+[node name="Player_states" type="Node" parent="."]
+
+[node name="state_playerB_idle" type="Node" parent="Player_states" node_paths=PackedStringArray("fsm", "player_input", "state_moving", "player_body")]
+script = ExtResource("4_ve825")
+fsm = NodePath("../../Finte_state_machine")
+player_input = NodePath("../../input_player_b")
+state_moving = NodePath("../state_playerB_moving")
+player_body = NodePath("../../player_body")
+
+[node name="state_playerB_moving" type="Node" parent="Player_states"]
+script = ExtResource("5_5fkpx")

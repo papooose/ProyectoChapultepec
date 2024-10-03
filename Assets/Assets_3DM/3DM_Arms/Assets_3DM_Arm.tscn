@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://m3fcaerg6lcf"]
+[gd_scene load_steps=2 format=3 uid="uid://m3fcaerg6lcf"]
 
 [ext_resource type="PackedScene" uid="uid://dqxafm40qisgk" path="res://Assets/Assets_3DM/3DM_Arms/Assets_3DM_Arms.glb" id="1_pf3ty"]
-[ext_resource type="Script" path="res://Scripts/Script_Tools/Script_Tool_IK.gd" id="2_0ba31"]
 
 [node name="Assets_3DM_Arms" instance=ExtResource("1_pf3ty")]
 
@@ -20,15 +19,3 @@ bones/14/rotation = Quaternion(0.0211946, -0.00199208, -0.180752, 0.983298)
 bones/15/rotation = Quaternion(-0.0531555, -0.72742, -0.482315, 0.485187)
 bones/16/rotation = Quaternion(0.288936, -0.276417, 0.0591993, 0.914661)
 bones/17/rotation = Quaternion(0.293155, -0.0525746, -0.133517, 0.945235)
-
-[node name="SkeletonIK3D" type="SkeletonIK3D" parent="Armature_Arm/Skeleton3D" index="1"]
-root_bone = &"Wrist_Base"
-tip_bone = &"hand_Bait"
-use_magnet = true
-target_node = NodePath("../../Marker_Anchor/Marker3D")
-script = ExtResource("2_0ba31")
-
-[node name="Marker_Anchor" type="Node3D" parent="Armature_Arm" index="1"]
-
-[node name="Marker3D" type="Marker3D" parent="Armature_Arm/Marker_Anchor" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.07777, 1.21685, 0)

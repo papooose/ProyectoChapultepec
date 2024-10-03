@@ -100,7 +100,9 @@ func _handle_camera_rot(delta)->void:
 	player_camera.rotation.y = lerp_angle(player_camera.rotation.y, _target_h_rot, delta*lerp_speed)
 	player_camera.rotation.x = lerp_angle(player_camera.rotation.x, _target_v_rot, delta*lerp_speed)
 	
-	axis_arms.rotation.y = lerp_angle(axis_arms.rotation.y,_target_h_rot,delta*lerp_speed*1.5)
+	
+	axis_arms.rotation.y = lerp_angle(axis_arms.rotation.y,_target_h_rot,delta*lerp_speed*0.5)
+	
 
 
 func _input(event: InputEvent) -> void:

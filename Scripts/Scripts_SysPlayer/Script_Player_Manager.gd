@@ -4,7 +4,6 @@ class_name Manager_player
 @export_group("Signal Emitters")
 var Dialogue_manager
 @export var pasue_input: input_settings
-var crosshair_manager
 #endregion
 
 

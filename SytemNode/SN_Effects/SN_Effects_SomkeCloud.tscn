@@ -1,0 +1,76 @@
+[gd_scene load_steps=10 format=3 uid="uid://cf13weg4j8d0y"]
+
+[ext_resource type="Texture2D" uid="uid://cmmu2u4xj4v2" path="res://Assets/Assets_UI/Assets_UI_RedDot_1.png" id="1_a27i8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jdjsf"]
+transparency = 2
+alpha_scissor_threshold = 1.0
+alpha_antialiasing_mode = 0
+shading_mode = 0
+albedo_color = Color(0.894118, 0.6, 0.72549, 1)
+albedo_texture = ExtResource("1_a27i8")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7palu"]
+spread = 180.0
+initial_velocity_min = 3.0
+initial_velocity_max = 5.0
+linear_accel_min = 3.0
+linear_accel_max = 5.0
+scale_min = 0.03
+scale_max = 0.03
+
+[sub_resource type="QuadMesh" id="QuadMesh_6nhsk"]
+
+[sub_resource type="Gradient" id="Gradient_gkqrj"]
+offsets = PackedFloat32Array(0.646018, 0.99115)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cddie"]
+gradient = SubResource("Gradient_gkqrj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uugw7"]
+particle_flag_rotate_y = true
+emission_shape = 1
+emission_sphere_radius = 0.1
+angle_min = 1.07288e-05
+angle_max = 720.0
+angular_velocity_min = -10.0
+angular_velocity_max = 9.99998
+gravity = Vector3(0, 0.1, 0)
+scale_min = 0.3
+scale_max = 0.4
+color = Color(0.454902, 0.454902, 0.454902, 0.764706)
+color_ramp = SubResource("GradientTexture1D_cddie")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o20f4"]
+transparency = 1
+vertex_color_use_as_albedo = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_6rm7y"]
+material = SubResource("StandardMaterial3D_o20f4")
+radial_segments = 7
+rings = 3
+
+[node name="SnEffectsDirectionPoint" type="Node3D"]
+
+[node name="SparkParticles" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_jdjsf")
+emitting = false
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_7palu")
+draw_pass_1 = SubResource("QuadMesh_6nhsk")
+
+[node name="SmokeParticles" type="GPUParticles3D" parent="."]
+emitting = false
+lifetime = 2.0
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_uugw7")
+draw_pass_1 = SubResource("SphereMesh_6rm7y")
+
+[connection signal="child_entered_tree" from="." to="SparkParticles" method="restart"]
+[connection signal="child_entered_tree" from="." to="SmokeParticles" method="restart"]
