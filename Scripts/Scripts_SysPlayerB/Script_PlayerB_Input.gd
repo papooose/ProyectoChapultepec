@@ -8,7 +8,10 @@ signal signal_action_cameramove
 
 @onready var player_camera: camera_player_b = $"../player_body/Player_Head/Player_camera"
 
-
+func _disable_input()->void:
+	set_process_input(false)
+func _enable_input()->void:
+	set_process_input(true)
 
 func _move_forward():
 	signal_action_forward.emit()

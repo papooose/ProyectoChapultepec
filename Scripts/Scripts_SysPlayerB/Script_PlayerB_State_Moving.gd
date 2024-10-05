@@ -20,6 +20,7 @@ func _connect_signals():
 	
 func _disconnect_signals():
 	player_input.signal_action_forward.disconnect(_move_player_to_point)
+	player_body.navigation_agent.navigation_finished.disconnect(_player_arrived_to_pos)
 
 
 func _move_player_to_point():

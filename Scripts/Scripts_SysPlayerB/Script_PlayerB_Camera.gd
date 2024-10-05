@@ -18,20 +18,23 @@ var target_h_rot:float
 var target_v_rot:float
 #endregion
 
-#region Camera FX vars
-const BOB_FREQ: float = 0.5
-const BOB_AMP: float = 0.3
-var bob_time:float = 0.0
-
-const FOV_BASE:float = 75.0 #This value shouldnt be local, try using and external settings value
-const FOV_CHANGE: float = 1.5
-#endregion
 
 #region Proces functions
 func _process(delta: float) -> void:
 	_handle_camera_rot(delta)
-
 #region
+
+func _disable_camera_rot()->void:
+	target_h_rot = rotation.y
+	target_v_rot = rotation.x
+	set_process(false)
+
+func _enable_camera_rot()->void:
+	set_process(true)
+
+#region Camera FX
+
+#endregion 
 
 #region Camera movement
 func _handle_camera_rot(delta)->void:
@@ -40,7 +43,6 @@ func _handle_camera_rot(delta)->void:
 	
 	rotation.y = lerp_angle(rotation.y, target_h_rot, delta*lerp_speed)
 	rotation.x = lerp_angle(rotation.x, target_v_rot, delta*lerp_speed)
-
 
 
 func _handle_camera_input(event)->void:

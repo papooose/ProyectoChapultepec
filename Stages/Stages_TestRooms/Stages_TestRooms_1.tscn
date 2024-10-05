@@ -98,7 +98,8 @@ mesh = SubResource("BoxMesh_f7adx")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="interactable_character"]
 shape = SubResource("BoxShape3D_cxptx")
 
-[node name="Prefab_PlayerB" parent="." instance=ExtResource("7_l3sem")]
+[node name="Prefab_PlayerB" parent="." node_paths=PackedStringArray("pause_input") instance=ExtResource("7_l3sem")]
+pause_input = NodePath("../input_setting")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_py5h0")

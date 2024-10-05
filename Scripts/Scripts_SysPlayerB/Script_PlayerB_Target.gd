@@ -17,6 +17,11 @@ var query:= PhysicsRayQueryParameters3D.new()
 
 const INTERACT_RADIUS: int = 20
 
+func _disable_pointer()->void:
+	set_process(false)
+func _enable_pointer()->void:
+	set_process(true)
+
 
 func _process(delta: float) -> void:
 	if result:
@@ -41,8 +46,3 @@ func _spawn_arrow():
 		hit_effect_inst = hit_effect.instantiate()
 		get_tree().get_root().add_child(hit_effect_inst)
 		hit_effect_inst.global_position = result.position
-
-
-func _remove_arrow():
-	#player_pointer.hide()
-	pass

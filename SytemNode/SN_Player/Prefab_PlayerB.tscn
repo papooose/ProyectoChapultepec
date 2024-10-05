@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://ce7asmyms5ykl"]
+[gd_scene load_steps=12 format=3 uid="uid://ce7asmyms5ykl"]
 
 [ext_resource type="Script" path="res://Scripts/Scripts_SysPlayerB/Script_PlayerB_Mover.gd" id="1_ep52n"]
+[ext_resource type="Script" path="res://Scripts/Scripts_SysSettings/Script_PlayerB_manager.gd" id="1_ghy8j"]
 [ext_resource type="Script" path="res://Scripts/Scripts_SysPlayerB/Script_PlayerB_Camera.gd" id="2_074ks"]
 [ext_resource type="Script" path="res://Scripts/Scripts_SysPlayerB/Script_PlayerB_Input.gd" id="3_5pt5g"]
 [ext_resource type="Script" path="res://Scripts/Scripts_SysPlayerB/Script_PlayerB_Raycast.gd" id="3_tc7ve"]
@@ -8,10 +9,12 @@
 [ext_resource type="Script" path="res://Scripts/Script_SysFSM/Script_FSM.gd" id="4_x5okn"]
 [ext_resource type="Script" path="res://Scripts/Scripts_SysPlayerB/Script_PlayerB_State_Moving.gd" id="5_5fkpx"]
 [ext_resource type="PackedScene" uid="uid://cq3svn8llx5wb" path="res://SytemNode/SN_Player/Prefab_PlayerB_Pointer.tscn" id="8_eju14"]
+[ext_resource type="Script" path="res://Scripts/Scripts_SysPlayerB/Script_PlayerB_State_Paused.gd" id="9_c5w0x"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_741xb"]
 
 [node name="Prefab_PlayerB" type="Node3D"]
+script = ExtResource("1_ghy8j")
 
 [node name="player_body" type="CharacterBody3D" parent="."]
 script = ExtResource("1_ep52n")
@@ -54,5 +57,8 @@ player_body = NodePath("../../player_body")
 
 [node name="state_playerB_moving" type="Node" parent="Player_states"]
 script = ExtResource("5_5fkpx")
+
+[node name="state_playerB_paused" type="Node" parent="Player_states"]
+script = ExtResource("9_c5w0x")
 
 [node name="Player_Target" parent="." instance=ExtResource("8_eju14")]
