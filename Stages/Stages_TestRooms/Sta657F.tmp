@@ -1,0 +1,114 @@
+[gd_scene load_steps=18 format=3 uid="uid://dbg8u27tb8mdv"]
+
+[ext_resource type="Script" path="res://Scripts/Scripts_SysSettings/Script_SysSettings_Video.gd" id="2_a3suy"]
+[ext_resource type="PackedScene" uid="uid://dt4qvdff6rc20" path="res://SytemNode/SN_UI/SN_PauseScreen.tscn" id="3_a7fsd"]
+[ext_resource type="Script" path="res://Scripts/Scripts_SysSettings/Script_Settings_Input.gd" id="4_lxesi"]
+[ext_resource type="Script" path="res://Scripts/Scripts_NPC/Script_NPC_Interactable_Sign.gd" id="5_6o1e1"]
+[ext_resource type="Script" path="res://Scripts/Scripts_NPC/Script_NPC_Interactable_Book.gd" id="6_yl7nj"]
+[ext_resource type="PackedScene" uid="uid://ce7asmyms5ykl" path="res://SytemNode/SN_Player/Prefab_PlayerB.tscn" id="7_l3sem"]
+[ext_resource type="Script" path="res://Scripts/Scripts_NPC/Script_NPC_Interactable_Character.gd" id="7_sme6m"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_q4ubj"]
+sky_top_color = Color(0.0120017, 0.509279, 0.548392, 1)
+sky_horizon_color = Color(0.730389, 0.641752, 0.502122, 1)
+ground_bottom_color = Color(0.730884, 0.41071, 0.597529, 1)
+ground_horizon_color = Color(0.74692, 0.650006, 0.300217, 1)
+ground_energy_multiplier = 1.45
+sun_angle_max = 58.47
+
+[sub_resource type="Sky" id="Sky_0cpfv"]
+sky_material = SubResource("ProceduralSkyMaterial_q4ubj")
+
+[sub_resource type="Environment" id="Environment_1uf30"]
+background_mode = 2
+sky = SubResource("Sky_0cpfv")
+ambient_light_color = Color(0.871538, 0.744341, 0.950504, 1)
+ambient_light_energy = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yl5m5"]
+albedo_color = Color(1, 0.188235, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_f7adx"]
+material = SubResource("StandardMaterial3D_yl5m5")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cxptx"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_py5h0"]
+vertices = PackedVector3Array(-19.5, 0.5, -19.5, -19.5, 0.5, 19.5, 19.5, 0.5, 19.5, 19.5, 0.5, -19.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ko2pv"]
+albedo_color = Color(0.234228, 0.461864, 0.2422, 1)
+metallic = 1.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_dowlg"]
+material = SubResource("StandardMaterial3D_ko2pv")
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_l5840"]
+data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
+
+[node name="StagesTestRooms1" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1uf30")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.98674, 0.16231, 0, -0.16231, 0.98674, 0, 0, 0)
+light_energy = 2.521
+
+[node name="Settings_Video" type="Node" parent="."]
+script = ExtResource("2_a3suy")
+
+[node name="SN_PauseScreen" parent="." instance=ExtResource("3_a7fsd")]
+
+[node name="input_setting" type="Node" parent="." node_paths=PackedStringArray("pause_UI")]
+script = ExtResource("4_lxesi")
+pause_UI = NodePath("../SN_PauseScreen")
+
+[node name="interactable_sign" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -6.186)
+collision_layer = 3
+script = ExtResource("5_6o1e1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="interactable_sign"]
+mesh = SubResource("BoxMesh_f7adx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="interactable_sign"]
+shape = SubResource("BoxShape3D_cxptx")
+
+[node name="interactable_book" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.17871, 2, -6.186)
+collision_layer = 3
+script = ExtResource("6_yl7nj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="interactable_book"]
+mesh = SubResource("BoxMesh_f7adx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="interactable_book"]
+shape = SubResource("BoxShape3D_cxptx")
+
+[node name="interactable_character" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.55348, 2, -6.186)
+collision_layer = 3
+script = ExtResource("7_sme6m")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="interactable_character"]
+mesh = SubResource("BoxMesh_f7adx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="interactable_character"]
+shape = SubResource("BoxShape3D_cxptx")
+
+[node name="Prefab_PlayerB" parent="." instance=ExtResource("7_l3sem")]
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_py5h0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D"]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
+mesh = SubResource("PlaneMesh_dowlg")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_l5840")

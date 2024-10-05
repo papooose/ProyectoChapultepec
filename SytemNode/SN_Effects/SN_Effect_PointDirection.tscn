@@ -1,10 +1,59 @@
-[gd_scene load_steps=5 format=3 uid="uid://cpywef7pkpwfe"]
+[gd_scene load_steps=11 format=3 uid="uid://cpywef7pkpwfe"]
 
 [ext_resource type="Script" path="res://Scripts/Scripts_SFX/Script_SFX_ShadingArrow.gd" id="1_g7vf0"]
-[ext_resource type="Texture2D" uid="uid://cmmu2u4xj4v2" path="res://Assets/Assets_UI/Assets_UI_RedDot_1.png" id="1_gf6br"]
 [ext_resource type="PackedScene" uid="uid://ciglsal44hodt" path="res://Assets/Assets_3DM/Assets_3DM_Props/3DM_Props_Arrow_1.tscn" id="2_2kb2a"]
+[ext_resource type="Texture2D" uid="uid://cihf806ob7y1h" path="res://Assets/Assets_UI/Assets_UI_Crosshair_2.png" id="2_hyo61"]
+[ext_resource type="Shader" uid="uid://b0vnlhcq0q26u" path="res://Assets/Assets_Shader_Materials/VisualShader_Fade.tres" id="4_ikqbr"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_7ff02"]
+
+[sub_resource type="Animation" id="Animation_d2g84"]
+resource_name = "Decal_Scale"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.466667, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(2, 2, 2), Vector3(1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_gq5em"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_348vh"]
+_data = {
+"Decal_Scale": SubResource("Animation_d2g84"),
+"RESET": SubResource("Animation_gq5em")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_beua0"]
+resource_local_to_scene = true
+render_priority = 1
+transparency = 1
+depth_draw_mode = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1t4g1"]
+resource_local_to_scene = true
+render_priority = 0
+next_pass = SubResource("StandardMaterial3D_beua0")
+shader = ExtResource("4_ikqbr")
 
 [node name="SnEffectPointDirection" type="Node3D"]
 script = ExtResource("1_g7vf0")
@@ -15,10 +64,20 @@ visible = false
 mesh = SubResource("QuadMesh_7ff02")
 
 [node name="Decal" type="Decal" parent="."]
-size = Vector3(0.1, 0.1, 0.1)
-texture_albedo = ExtResource("1_gf6br")
-modulate = Color(0, 0, 0, 1)
+size = Vector3(1, 1, 1)
+texture_albedo = ExtResource("2_hyo61")
 distance_fade_enabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Decal"]
+libraries = {
+"": SubResource("AnimationLibrary_348vh")
+}
+autoplay = "Decal_Scale"
 
 [node name="3dModel_Props_Arrow_1" parent="." instance=ExtResource("2_2kb2a")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="Mesh_Prop_Arrow" parent="3dModel_Props_Arrow_1" index="0"]
+material_override = SubResource("ShaderMaterial_1t4g1")
+
+[editable path="3dModel_Props_Arrow_1"]
