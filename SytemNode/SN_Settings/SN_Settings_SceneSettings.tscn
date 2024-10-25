@@ -1,0 +1,18 @@
+[gd_scene load_steps=6 format=3 uid="uid://culboiw3ecjh4"]
+
+[ext_resource type="Script" path="res://Scripts/Scripts_SysSettings/Script_SysSettings_Video.gd" id="1_emges"]
+[ext_resource type="Script" path="res://Scripts/Scripts_SysSettings/Script_SysSettings_Audio.gd" id="2_hermc"]
+[ext_resource type="AudioEffectPitchShift" uid="uid://bob2ocqadba7e" path="res://Assets/Assets_SFX/SFX_CustomAudioFX/SFX_audioEffect_pitchShift.tres" id="3_dsykw"]
+[ext_resource type="AudioEffectReverb" uid="uid://cmggr104b1p3g" path="res://Assets/Assets_SFX/SFX_CustomAudioFX/SFX_audioEffect_Reverb.tres" id="4_4m2pe"]
+[ext_resource type="AudioEffectChorus" uid="uid://b7yk00levbj8a" path="res://Assets/Assets_SFX/SFX_CustomAudioFX/SFX_audioEffect_Chorus.tres" id="5_mmw3l"]
+
+[node name="Scene_Settings" type="Node"]
+
+[node name="Settings_Video" type="Node" parent="."]
+script = ExtResource("1_emges")
+
+[node name="Settings_Audio" type="Node" parent="."]
+script = ExtResource("2_hermc")
+Pitch_FX = ExtResource("3_dsykw")
+Reverb_FX = ExtResource("4_4m2pe")
+Chorus_FX = ExtResource("5_mmw3l")

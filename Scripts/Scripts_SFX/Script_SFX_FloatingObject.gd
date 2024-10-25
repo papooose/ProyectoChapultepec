@@ -4,7 +4,6 @@ class_name player_arrowPointer
 @export var frequency: float = 5.0
 @export var length: float = 0.4
 @export var floating_obj:Node3D
-var opacity:float
 var lerp_time:float =0.0
 
 func _process(delta: float) -> void:

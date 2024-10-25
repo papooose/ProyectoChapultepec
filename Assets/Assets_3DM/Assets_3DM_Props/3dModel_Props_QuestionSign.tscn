@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=3 uid="uid://biqxhvty5tqfg"]
+
+[ext_resource type="PackedScene" uid="uid://bdhcc7ojt1fk7" path="res://Assets/Assets_3DM/Assets_3DM_Props/3dModel_Props_QuestionSign.glb" id="1_rhrau"]
+[ext_resource type="Material" uid="uid://duge7lgd4l4w3" path="res://Assets/Assets_Shader_Materials/ShaderMat_Fade_3.tres" id="3_6aybl"]
+[ext_resource type="Script" path="res://Scripts/Scripts_SFX/Script_SFX_FloatingObject.gd" id="3_pxw21"]
+
+[sub_resource type="Animation" id="Animation_qr7vr"]
+resource_name = "Question_Fade"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mesh_QuestionSign:material_override:next_pass:albedo_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.466667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.0954686, 0.358322, 0.225098, 1), Color(0.0941176, 0.356863, 0.223529, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_2d24d"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mesh_QuestionSign:material_override:next_pass:albedo_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.0954686, 0.358322, 0.225098, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lehar"]
+_data = {
+"Question_Fade": SubResource("Animation_qr7vr"),
+"RESET": SubResource("Animation_2d24d")
+}
+
+[node name="3dModel_Props_QuestionSign" instance=ExtResource("1_rhrau")]
+
+[node name="Mesh_QuestionSign" parent="." index="0" node_paths=PackedStringArray("floating_obj")]
+material_override = ExtResource("3_6aybl")
+script = ExtResource("3_pxw21")
+floating_obj = NodePath(".")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
+libraries = {
+"": SubResource("AnimationLibrary_lehar")
+}

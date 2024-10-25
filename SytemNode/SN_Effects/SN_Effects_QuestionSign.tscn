@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://bdwi8w008um4l"]
+
+[ext_resource type="Script" path="res://Scripts/Scripts_SFX/Script_SFX_QuestionSign.gd" id="2_dm34c"]
+[ext_resource type="PackedScene" uid="uid://biqxhvty5tqfg" path="res://Assets/Assets_3DM/Assets_3DM_Props/3dModel_Props_QuestionSign.tscn" id="2_l0ktg"]
+[ext_resource type="Shader" uid="uid://b0vnlhcq0q26u" path="res://Assets/Assets_Shader_Materials/VisualShader_Fade.tres" id="3_tubue"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s6iue"]
+resource_local_to_scene = true
+render_priority = 1
+transparency = 1
+depth_draw_mode = 2
+albedo_color = Color(0.0954686, 0.358322, 0.225098, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_78aw8"]
+resource_local_to_scene = true
+render_priority = 10
+next_pass = SubResource("StandardMaterial3D_s6iue")
+shader = ExtResource("3_tubue")
+
+[node name="SN_Effects_QuestioSign" type="Node3D"]
+script = ExtResource("2_dm34c")
+
+[node name="3dModel_Props_QuestionSign" parent="." instance=ExtResource("2_l0ktg")]
+transform = Transform3D(1, 0, 0, 0, 1.31134e-07, 1, 0, -1, 1.31134e-07, 0, 0, -2)
+
+[node name="Mesh_QuestionSign" parent="3dModel_Props_QuestionSign" index="0"]
+material_override = SubResource("ShaderMaterial_78aw8")
+length = -0.4
+
+[editable path="3dModel_Props_QuestionSign"]

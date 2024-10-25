@@ -32,9 +32,6 @@ func _disable_camera_rot()->void:
 func _enable_camera_rot()->void:
 	set_process(true)
 
-#region Camera FX
-
-#endregion 
 
 #region Camera movement
 func _handle_camera_rot(delta)->void:
@@ -54,5 +51,5 @@ func _handle_camera_input(event)->void:
 
 		h_axis.rotation.x = clamp(h_axis.rotation.x,deg_to_rad(0),deg_to_rad(0))#prevents it from rotationg in the x axis
 		v_axis.rotation.y = clamp(v_axis.rotation.y,deg_to_rad(0),deg_to_rad(0))#prevents it from rotation in the y axis
-		v_axis.rotation.x = clamp(v_axis.rotation.x,deg_to_rad(-44),deg_to_rad(44))# prevents it from rotating completely
+		v_axis.rotation.x = clamp(v_axis.rotation.x,deg_to_rad(-70),deg_to_rad(44))# prevents it from rotating completely
 #endregion

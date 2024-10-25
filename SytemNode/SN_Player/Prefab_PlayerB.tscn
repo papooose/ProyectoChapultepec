@@ -1,15 +1,16 @@
-[gd_scene load_steps=12 format=3 uid="uid://ce7asmyms5ykl"]
+[gd_scene load_steps=13 format=3 uid="uid://ce7asmyms5ykl"]
 
 [ext_resource type="Script" path="res://Scripts/Scripts_SysPlayerB/Script_PlayerB_Mover.gd" id="1_ep52n"]
-[ext_resource type="Script" path="res://Scripts/Scripts_SysSettings/Script_PlayerB_manager.gd" id="1_ghy8j"]
+[ext_resource type="Script" path="res://Scripts/Scripts_SysPlayerB/Script_PlayerB_manager.gd" id="1_ghy8j"]
 [ext_resource type="Script" path="res://Scripts/Scripts_SysPlayerB/Script_PlayerB_Camera.gd" id="2_074ks"]
 [ext_resource type="Script" path="res://Scripts/Scripts_SysPlayerB/Script_PlayerB_Input.gd" id="3_5pt5g"]
-[ext_resource type="Script" path="res://Scripts/Scripts_SysPlayerB/Script_PlayerB_Raycast.gd" id="3_tc7ve"]
 [ext_resource type="Script" path="res://Scripts/Scripts_SysPlayerB/Script_PlayerB_State_Idle.gd" id="4_ve825"]
 [ext_resource type="Script" path="res://Scripts/Script_SysFSM/Script_FSM.gd" id="4_x5okn"]
 [ext_resource type="Script" path="res://Scripts/Scripts_SysPlayerB/Script_PlayerB_State_Moving.gd" id="5_5fkpx"]
 [ext_resource type="PackedScene" uid="uid://cq3svn8llx5wb" path="res://SytemNode/SN_Player/Prefab_PlayerB_Pointer.tscn" id="8_eju14"]
 [ext_resource type="Script" path="res://Scripts/Scripts_SysPlayerB/Script_PlayerB_State_Paused.gd" id="9_c5w0x"]
+[ext_resource type="PackedScene" uid="uid://bwdpunhsgrurv" path="res://SytemNode/SN_Player/Prefab_PlayerB_InteractArea.tscn" id="10_ysfng"]
+[ext_resource type="Script" path="res://Scripts/Scripts_SysPlayerB/Script_PlayerB_Pointer.gd" id="11_h8lrx"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_741xb"]
 
@@ -27,10 +28,9 @@ shape = SubResource("CapsuleShape3D_741xb")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="Player_camera" type="Camera3D" parent="player_body/Player_Head"]
+size = 6.0
+far = 200.0
 script = ExtResource("2_074ks")
-
-[node name="raycast_player_b" type="RayCast3D" parent="player_body/Player_Head/Player_camera"]
-script = ExtResource("3_tc7ve")
 
 [node name="Axis_H" type="Node3D" parent="player_body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
@@ -38,6 +38,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 [node name="Axis_V" type="Node3D" parent="player_body/Axis_H"]
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="player_body"]
+navigation_layers = 3
+debug_enabled = true
 
 [node name="input_player_b" type="Node" parent="."]
 script = ExtResource("3_5pt5g")
@@ -48,12 +50,12 @@ current_state = NodePath("../Player_states/state_playerB_idle")
 
 [node name="Player_states" type="Node" parent="."]
 
-[node name="state_playerB_idle" type="Node" parent="Player_states" node_paths=PackedStringArray("fsm", "player_input", "state_moving", "player_body")]
+[node name="state_playerB_idle" type="Node" parent="Player_states" node_paths=PackedStringArray("fsm", "player_input", "state_moving", "player_Target")]
 script = ExtResource("4_ve825")
 fsm = NodePath("../../Finte_state_machine")
 player_input = NodePath("../../input_player_b")
 state_moving = NodePath("../state_playerB_moving")
-player_body = NodePath("../../player_body")
+player_Target = NodePath("../../Player_Target")
 
 [node name="state_playerB_moving" type="Node" parent="Player_states"]
 script = ExtResource("5_5fkpx")
@@ -62,3 +64,9 @@ script = ExtResource("5_5fkpx")
 script = ExtResource("9_c5w0x")
 
 [node name="Player_Target" parent="." instance=ExtResource("8_eju14")]
+transform = Transform3D(1, 0, 0, 0, 1, 4.56956e-08, 0, -4.56956e-08, 1, 0, 0, 0)
+
+[node name="Player_Area" parent="Player_Target" instance=ExtResource("10_ysfng")]
+
+[node name="player_pointer" type="Node3D" parent="."]
+script = ExtResource("11_h8lrx")

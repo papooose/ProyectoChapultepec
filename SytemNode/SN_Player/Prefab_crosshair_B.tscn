@@ -1,0 +1,134 @@
+[gd_scene load_steps=13 format=3 uid="uid://c4i16p7d75rw2"]
+
+[ext_resource type="Script" path="res://Scripts/Scripts_SysPlayerB/Script_PlayerB_UI.gd" id="1_o0dim"]
+[ext_resource type="Script" path="res://Scripts/Scripts_SysPlayerB/Script_CrosshairB_State_Clear.gd" id="1_s7uwq"]
+[ext_resource type="Script" path="res://Scripts/Scripts_SysPlayerB/Script_CrosshairB_State_book.gd" id="2_nq7xi"]
+[ext_resource type="Script" path="res://Scripts/Scripts_SysPlayerB/Script_CrosshairB_State_Character.gd" id="3_clo6b"]
+[ext_resource type="Script" path="res://Scripts/Scripts_SysPlayerB/Script_CrosshairB_State_Sign.gd" id="3_upu0o"]
+[ext_resource type="Script" path="res://Scripts/Scripts_SysPlayerB/Script_CrosshairB_State_Item.gd" id="5_1pxrl"]
+[ext_resource type="Script" path="res://Scripts/Script_SysFSM/Script_FSM.gd" id="6_mfolv"]
+
+[sub_resource type="Animation" id="Animation_h8f2i"]
+resource_name = "Container_FadeIn"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_gycwg"]
+resource_name = "Container_FadeOut"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_8ovqu"]
+resource_name = "Container_Idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_3sqq5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j181i"]
+_data = {
+"Container_FadeIn": SubResource("Animation_h8f2i"),
+"Container_FadeOut": SubResource("Animation_gycwg"),
+"Container_Idle": SubResource("Animation_8ovqu"),
+"RESET": SubResource("Animation_3sqq5")
+}
+
+[node name="Player_UI" type="CanvasLayer"]
+script = ExtResource("1_o0dim")
+
+[node name="Player_UI_Container" type="ColorRect" parent="."]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.197531
+grow_horizontal = 2
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Player_UI_Container"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="UI_Label" type="Label" parent="Player_UI_Container/AspectRatioContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player_UI_Container"]
+libraries = {
+"": SubResource("AnimationLibrary_j181i")
+}
+autoplay = "Container_Idle"
+
+[node name="States" type="Node" parent="."]
+
+[node name="state_crosshariB_clear" type="Node" parent="States"]
+script = ExtResource("1_s7uwq")
+
+[node name="state_crosshariB_book" type="Node" parent="States"]
+script = ExtResource("2_nq7xi")
+new_text = "clikc to read"
+
+[node name="state_crosshariB_character" type="Node" parent="States"]
+script = ExtResource("3_clo6b")
+new_text = "clikc to talk"
+
+[node name="state_crosshariB_sign" type="Node" parent="States"]
+script = ExtResource("3_upu0o")
+new_text = "clikc to be aware"
+
+[node name="state_crosshariB_item" type="Node" parent="States"]
+script = ExtResource("5_1pxrl")
+new_text = "click to pick"
+
+[node name="Finte_state_machine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+script = ExtResource("6_mfolv")
+current_state = NodePath("../States/state_crosshariB_clear")

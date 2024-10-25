@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://bwdpunhsgrurv"]
+
+[ext_resource type="Script" path="res://Scripts/Scripts_SysPlayerB/Scripts_SysPlayerB_PlayerArea/Script_PlayerB_AreaInteract.gd" id="1_x7840"]
+[ext_resource type="PackedScene" uid="uid://3w2ibpmc3yy7" path="res://SytemNode/SN_Player/Prefab_crosshair.tscn" id="2_me2ow"]
+[ext_resource type="Script" path="res://Scripts/Script_SysFSM/Script_FSM.gd" id="3_gajco"]
+[ext_resource type="Script" path="res://Scripts/Scripts_SysPlayerB/Scripts_SysPlayerB_PlayerArea/Script_Player_Area_State_Base.gd" id="4_75n3u"]
+[ext_resource type="Script" path="res://Scripts/Scripts_SysPlayerB/Scripts_SysPlayerB_PlayerArea/Script_Player_Area_State_Carrying.gd" id="5_d1ww2"]
+[ext_resource type="Script" path="res://Scripts/Scripts_SysPlayerB/Scripts_SysPlayerB_PlayerArea/Script_Player_Area_State_SelectingObj.gd" id="6_t5q8a"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_dv5iv"]
+height = 1.00109
+
+[node name="Player_Area" type="Area3D"]
+collision_layer = 4
+collision_mask = 4
+priority = 1
+script = ExtResource("1_x7840")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CylinderShape3D_dv5iv")
+
+[node name="Player_Crosshair" parent="." instance=ExtResource("2_me2ow")]
+
+[node name="Player_Area_Object_Holder" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.250933, 0)
+collision_mask = 2
+hit_from_inside = true
+hit_back_faces = false
+
+[node name="Finte_state_machine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+script = ExtResource("3_gajco")
+current_state = NodePath("../States/state_PlayerArea_Clear")
+
+[node name="States" type="Node" parent="."]
+
+[node name="state_PlayerArea_Clear" type="Node" parent="States" node_paths=PackedStringArray("FSM", "PAM", "state_selectingObj")]
+script = ExtResource("4_75n3u")
+FSM = NodePath("../../Finte_state_machine")
+PAM = NodePath("../..")
+state_selectingObj = NodePath("../state_PlayerArea_SelectingObj")
+
+[node name="state_PlayerArea_Carrying" type="Node" parent="States"]
+script = ExtResource("5_d1ww2")
+
+[node name="state_PlayerArea_SelectingObj" type="Node" parent="States"]
+script = ExtResource("6_t5q8a")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

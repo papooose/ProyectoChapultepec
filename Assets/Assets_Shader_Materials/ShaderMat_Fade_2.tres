@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://c0nk43bmktw7l"]
+
+[ext_resource type="Material" uid="uid://c7mlbtjwibw6q" path="res://Assets/Assets_SPMaterials/Assets_SPMat_2.tres" id="1_np31x"]
+[ext_resource type="Shader" uid="uid://b0vnlhcq0q26u" path="res://Assets/Assets_Shader_Materials/VisualShader_Fade.tres" id="2_mr5ik"]
+
+[resource]
+resource_local_to_scene = true
+render_priority = 0
+next_pass = ExtResource("1_np31x")
+shader = ExtResource("2_mr5ik")

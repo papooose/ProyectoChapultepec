@@ -1,0 +1,104 @@
+[gd_scene load_steps=17 format=3 uid="uid://dbg8u27tb8mdv"]
+
+[ext_resource type="Script" path="res://Scripts/Scripts_SysSettings/Script_SysSettings_Video.gd" id="2_a3suy"]
+[ext_resource type="PackedScene" uid="uid://dt4qvdff6rc20" path="res://SytemNode/SN_UI/SN_PauseScreen.tscn" id="3_a7fsd"]
+[ext_resource type="Script" path="res://Scripts/Scripts_SysSettings/Script_Settings_Input.gd" id="4_lxesi"]
+[ext_resource type="Script" path="res://Scripts/Scripts_NPC/Script_NPC_Interactable_Sign.gd" id="5_6o1e1"]
+[ext_resource type="Script" path="res://Scripts/Scripts_NPC/Script_NPC_Interactable_Book.gd" id="6_yl7nj"]
+[ext_resource type="PackedScene" uid="uid://ce7asmyms5ykl" path="res://SytemNode/SN_Player/Prefab_PlayerB.tscn" id="7_l3sem"]
+[ext_resource type="Script" path="res://Scripts/Scripts_NPC/Script_NPC_Interactable_Character.gd" id="7_sme6m"]
+[ext_resource type="PackedScene" uid="uid://b2rwe8hhtshh5" path="res://Assets/Assets_3DM/Assets_3DM_Props/3DM_Props_TestFLoor_1.tscn" id="8_1jfnp"]
+[ext_resource type="PackedScene" uid="uid://biqxhvty5tqfg" path="res://Assets/Assets_3DM/Assets_3DM_Props/3dModel_Props_QuestionSign.tscn" id="9_itmv6"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_q4ubj"]
+sky_top_color = Color(0.0120017, 0.509279, 0.548392, 1)
+sky_horizon_color = Color(0.730389, 0.641752, 0.502122, 1)
+ground_bottom_color = Color(0.730884, 0.41071, 0.597529, 1)
+ground_horizon_color = Color(0.74692, 0.650006, 0.300217, 1)
+ground_energy_multiplier = 1.45
+sun_angle_max = 58.47
+
+[sub_resource type="Sky" id="Sky_0cpfv"]
+sky_material = SubResource("ProceduralSkyMaterial_q4ubj")
+
+[sub_resource type="Environment" id="Environment_1uf30"]
+background_mode = 2
+sky = SubResource("Sky_0cpfv")
+ambient_light_color = Color(0.871538, 0.744341, 0.950504, 1)
+ambient_light_energy = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yl5m5"]
+albedo_color = Color(1, 0.188235, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_f7adx"]
+material = SubResource("StandardMaterial3D_yl5m5")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cxptx"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_1yp5j"]
+vertices = PackedVector3Array(-46.6697, -1.40974, -50.8711, -46.6697, -1.65974, 44.3789, 53.3303, 9.84026, 44.3789, 53.3303, 10.0903, -50.8711, 11.3948, 10.0903, -50.8711, 8.16904, 9.59026, -50.8711, -11.1858, 0.840262, -50.8711, -17.6374, -1.40974, -50.8711, -46.6697, -1.40974, -20.1453, -46.6697, -2.65974, -17.0727, -46.6697, -9.90974, -4.78236, -46.6697, -11.1597, -1.70978, -46.6697, -10.9097, 29.016, -17.6374, -1.65974, 44.3789, -11.1858, 0.590262, 44.3789, 8.16904, 9.34026, 44.3789, 11.3948, 9.84026, 44.3789, 53.3303, 0.590262, 29.016, 53.3303, 0.0902624, 25.9434, 53.3303, 0.0902624, -1.70978, 53.3303, 1.34026, -4.78236, 53.3303, 8.84026, -17.0727, 53.3303, 10.0903, -20.1453, -15.645, -10.9097, 5.60415, 9.81668, 10.0903, -19.8866, 11.3472, 0.0902624, 28.1291, 11.3312, 0.0902624, -1.87382, -14.148, -10.4097, 28.1424, -17.1635, -1.40974, -19.8844, -17.1448, -10.9097, -3.35772, 8.32713, -0.159738, 28.1072, 8.32201, -0.159738, -0.370647, 8.35043, 0.0902624, -3.37094, -17.1573, -10.4097, 29.6455, -17.1681, -11.1597, 28.1204, -14.164, -10.4097, -1.8606, 6.80746, 8.59026, -18.3834, 18.8347, 1.34026, -4.86918, 18.8063, 0.0902624, -1.86889, 45.8178, 9.59026, -18.3477, 9.85305, 3.34026, -7.8854, 45.807, 10.0903, -19.8729, 6.84666, 9.09026, -19.8586, -11.1547, -8.65974, -3.36377, -15.6944, -1.15974, -49.8763, -45.66, -10.9097, -3.36648, -15.6785, -1.15974, -19.8734, -12.6477, -0.159738, -18.3762, -12.6585, 0.340262, -19.8514, 11.3125, 9.59026, -18.3504, 11.3517, 10.0903, -19.8756, 32.3527, 9.59026, -18.3466, 42.8449, 1.34026, -4.89339, 42.8165, 0.0902624, -1.89309, 32.3419, 10.0903, -19.8718, -15.6467, -3.90974, 40.1326, -17.1527, -1.90974, -18.3592, -15.6853, -4.40974, -13.8728, -9.65892, -8.40974, -1.87764, -6.6497, -6.65974, -3.38081, 51.8425, 0.0902624, 28.1258, 11.3097, 1.34026, -4.87412, 3.8238, 0.0902624, -6.3542, 5.3304, -1.15974, -3.39292, 9.82748, 9.59026, -18.3614, 5.34119, -1.65974, -1.86777, 3.84539, -1.90974, -3.3539, -15.6677, -1.65974, -18.3482, -15.6598, -10.6597, -3.34674, 9.85533, 3.84026, 34.1187, 2.35186, 2.59026, 37.1141, 8.3135, 7.09026, 40.1083)
+polygons = [PackedInt32Array(22, 41, 3), PackedInt32Array(3, 54, 4), PackedInt32Array(4, 24, 5), PackedInt32Array(5, 42, 6), PackedInt32Array(6, 44, 7), PackedInt32Array(7, 8, 0), PackedInt32Array(8, 56, 9), PackedInt32Array(9, 45, 10), PackedInt32Array(10, 45, 11), PackedInt32Array(11, 23, 12), PackedInt32Array(12, 13, 1), PackedInt32Array(13, 55, 14), PackedInt32Array(14, 70, 15), PackedInt32Array(15, 71, 16), PackedInt32Array(16, 60, 2), PackedInt32Array(2, 60, 17), PackedInt32Array(17, 60, 18), PackedInt32Array(18, 53, 19), PackedInt32Array(19, 53, 20), PackedInt32Array(20, 39, 21), PackedInt32Array(21, 39, 22), PackedInt32Array(41, 54, 3), PackedInt32Array(22, 39, 41), PackedInt32Array(54, 50, 4), PackedInt32Array(24, 42, 5), PackedInt32Array(4, 50, 24), PackedInt32Array(42, 48, 6), PackedInt32Array(44, 28, 7), PackedInt32Array(6, 48, 44), PackedInt32Array(7, 28, 8), PackedInt32Array(56, 45, 9), PackedInt32Array(8, 28, 56), PackedInt32Array(45, 23, 11), PackedInt32Array(23, 34, 12), PackedInt32Array(12, 33, 13), PackedInt32Array(55, 70, 14), PackedInt32Array(13, 33, 55), PackedInt32Array(70, 71, 15), PackedInt32Array(71, 69, 16), PackedInt32Array(16, 25, 60), PackedInt32Array(60, 53, 18), PackedInt32Array(53, 52, 20), PackedInt32Array(20, 52, 39), PackedInt32Array(41, 51, 54), PackedInt32Array(39, 51, 41), PackedInt32Array(54, 51, 50), PackedInt32Array(24, 64, 42), PackedInt32Array(50, 49, 24), PackedInt32Array(42, 36, 48), PackedInt32Array(44, 46, 28), PackedInt32Array(48, 46, 44), PackedInt32Array(56, 57, 45), PackedInt32Array(28, 46, 56), PackedInt32Array(45, 29, 23), PackedInt32Array(34, 33, 12), PackedInt32Array(23, 27, 34), PackedInt32Array(55, 27, 70), PackedInt32Array(33, 27, 55), PackedInt32Array(70, 69, 71), PackedInt32Array(69, 25, 16), PackedInt32Array(25, 53, 60), PackedInt32Array(53, 37, 52), PackedInt32Array(52, 51, 39), PackedInt32Array(51, 49, 50), PackedInt32Array(64, 36, 42), PackedInt32Array(24, 49, 64), PackedInt32Array(36, 47, 48), PackedInt32Array(48, 67, 46), PackedInt32Array(57, 29, 45), PackedInt32Array(56, 67, 57), PackedInt32Array(46, 67, 56), PackedInt32Array(29, 35, 23), PackedInt32Array(34, 27, 33), PackedInt32Array(23, 30, 27), PackedInt32Array(27, 30, 70), PackedInt32Array(70, 30, 69), PackedInt32Array(69, 30, 25), PackedInt32Array(25, 38, 53), PackedInt32Array(37, 51, 52), PackedInt32Array(53, 38, 37), PackedInt32Array(51, 37, 49), PackedInt32Array(64, 40, 36), PackedInt32Array(49, 40, 64), PackedInt32Array(47, 67, 48), PackedInt32Array(36, 62, 47), PackedInt32Array(57, 68, 29), PackedInt32Array(67, 47, 57), PackedInt32Array(35, 58, 23), PackedInt32Array(29, 68, 35), PackedInt32Array(23, 65, 30), PackedInt32Array(30, 31, 25), PackedInt32Array(25, 31, 38), PackedInt32Array(38, 61, 37), PackedInt32Array(37, 40, 49), PackedInt32Array(40, 62, 36), PackedInt32Array(62, 59, 47), PackedInt32Array(57, 43, 68), PackedInt32Array(47, 59, 57), PackedInt32Array(58, 65, 23), PackedInt32Array(35, 43, 58), PackedInt32Array(68, 43, 35), PackedInt32Array(65, 31, 30), PackedInt32Array(31, 26, 38), PackedInt32Array(61, 40, 37), PackedInt32Array(38, 26, 61), PackedInt32Array(40, 32, 62), PackedInt32Array(62, 66, 59), PackedInt32Array(57, 59, 43), PackedInt32Array(58, 59, 65), PackedInt32Array(43, 59, 58), PackedInt32Array(65, 32, 31), PackedInt32Array(31, 32, 26), PackedInt32Array(61, 32, 40), PackedInt32Array(26, 32, 61), PackedInt32Array(32, 63, 62), PackedInt32Array(66, 65, 59), PackedInt32Array(62, 63, 66), PackedInt32Array(65, 63, 32), PackedInt32Array(66, 63, 65)]
+
+[node name="StagesTestRooms1" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1uf30")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.98674, 0.16231, 0, -0.16231, 0.98674, 0, 0, 0)
+light_energy = 2.521
+
+[node name="Settings_Video" type="Node" parent="."]
+script = ExtResource("2_a3suy")
+
+[node name="SN_PauseScreen" parent="." instance=ExtResource("3_a7fsd")]
+
+[node name="input_setting" type="Node" parent="." node_paths=PackedStringArray("pause_UI")]
+script = ExtResource("4_lxesi")
+pause_UI = NodePath("../SN_PauseScreen")
+
+[node name="interactable_sign" type="StaticBody3D" parent="."]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 28, 1, 8.814)
+collision_layer = 5
+script = ExtResource("5_6o1e1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="interactable_sign"]
+mesh = SubResource("BoxMesh_f7adx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="interactable_sign"]
+shape = SubResource("BoxShape3D_cxptx")
+
+[node name="interactable_book" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.1787, 0.294739, 3.814)
+collision_layer = 5
+script = ExtResource("6_yl7nj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="interactable_book"]
+mesh = SubResource("BoxMesh_f7adx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="interactable_book"]
+shape = SubResource("BoxShape3D_cxptx")
+
+[node name="interactable_character" type="StaticBody3D" parent="."]
+transform = Transform3D(0.715, 0, 0, 0, 0.715, 0, 0, 0, 0.715, 16.5535, 0.273626, 4.814)
+collision_layer = 5
+script = ExtResource("7_sme6m")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="interactable_character"]
+mesh = SubResource("BoxMesh_f7adx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="interactable_character"]
+shape = SubResource("BoxShape3D_cxptx")
+
+[node name="Prefab_PlayerB" parent="." node_paths=PackedStringArray("pause_input") instance=ExtResource("7_l3sem")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.9269, 0, 18.9066)
+pause_input = NodePath("../input_setting")
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_1yp5j")
+navigation_layers = 2
+
+[node name="3dModel_Props_TestFloor_1" parent="NavigationRegion3D" instance=ExtResource("8_1jfnp")]
+
+[node name="3dModel_Props_QuestionSign" parent="." instance=ExtResource("9_itmv6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 2, 8)

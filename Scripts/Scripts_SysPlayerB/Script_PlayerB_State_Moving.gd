@@ -3,7 +3,11 @@ class_name state_playerB_moving
 
 @onready var player_body: Mover_player_b = $"../../player_body"
 @onready var player_input: input_player_b = $"../../input_player_b"
-@onready var player_pointer: player_target = $"../../Player_Target"
+@onready var player_point: player_target = $"../../Player_Target"
+@onready var FSM: Finte_state_machine = $"../../Finte_state_machine"
+
+
+@onready var state_idle: state_playerB_idle = $"../state_playerB_idle"
 
 
 
@@ -16,18 +20,23 @@ func _exit_state()->void:
 
 func _connect_signals():
 	player_input.signal_action_forward.connect(_move_player_to_point)
+	player_input.signal_action_interact.connect(_stop_player)
 	player_body.navigation_agent.navigation_finished.connect(_player_arrived_to_pos)
 	
 func _disconnect_signals():
 	player_input.signal_action_forward.disconnect(_move_player_to_point)
+	player_input.signal_action_interact.disconnect(_stop_player)
 	player_body.navigation_agent.navigation_finished.disconnect(_player_arrived_to_pos)
 
 
 func _move_player_to_point():
-	player_body._get_mouse_position()
-	player_pointer._spawn_arrow()
+	player_body._move_to_mouse_position()
+	player_point._spawn_arrow()
 
+func _stop_player():
+	player_body._stop_body()
+	player_point._transform_arrows()
+	FSM._change_state(state_idle)
 
 func _player_arrived_to_pos():
-	pass
-	#player_pointer._hide_arrow()
+	FSM._change_state(state_idle)

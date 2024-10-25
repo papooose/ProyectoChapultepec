@@ -4,9 +4,6 @@
 [ext_resource type="Script" path="res://Scripts/Scripts_SFX/Script_SFX_FloatingObject.gd" id="2_4ku8t"]
 [ext_resource type="Material" uid="uid://b5se2r8x4a2dq" path="res://Assets/Assets_Shader_Materials/ShaderMat_Fade.tres" id="2_x4bbb"]
 
-[sub_resource type="Animation" id="Animation_l1f16"]
-resource_name = "Arrow_Neutral"
-
 [sub_resource type="Animation" id="Animation_ch15y"]
 resource_name = "Arrow_FadeOut"
 length = 0.6
@@ -22,6 +19,9 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
+
+[sub_resource type="Animation" id="Animation_l1f16"]
+resource_name = "Arrow_Neutral"
 
 [sub_resource type="Animation" id="Animation_6msmb"]
 length = 0.001
@@ -50,10 +50,10 @@ script = ExtResource("2_4ku8t")
 floating_obj = NodePath("Mesh_Prop_Arrow")
 
 [node name="Mesh_Prop_Arrow" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, -1, 1.50996e-07, 0, -1.50996e-07, -1, 0, 0, 0)
 material_override = ExtResource("2_x4bbb")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
 libraries = {
 "": SubResource("AnimationLibrary_8ccp5")
 }
-autoplay = "Arrow_Neutral"

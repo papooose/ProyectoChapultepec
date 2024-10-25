@@ -1,0 +1,62 @@
+[gd_scene load_steps=7 format=3 uid="uid://3w2ibpmc3yy7"]
+
+[ext_resource type="Script" path="res://Scripts/Script_SyCrossharir/Script_Crosshair_manager.gd" id="1_c4wlx"]
+[ext_resource type="Texture2D" uid="uid://divnhcor2h455" path="res://Assets/Assets_UI/Assets_UI_Crosshair_1.png" id="1_k7l8o"]
+[ext_resource type="Script" path="res://Scripts/Script_SysFSM/Script_FSM.gd" id="2_4kmkc"]
+[ext_resource type="Script" path="res://Scripts/Script_SyCrossharir/Script_Crosshair_state_clear.gd" id="3_6jcn5"]
+[ext_resource type="Script" path="res://Scripts/Script_SyCrossharir/Script_Crosshair_state_book.gd" id="4_88sja"]
+[ext_resource type="Script" path="res://Scripts/Script_SyCrossharir/Script_Crosshair_state_sign.gd" id="5_b40ie"]
+
+[node name="Player_Crosshair" type="CanvasLayer"]
+script = ExtResource("1_c4wlx")
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="AspectRatioContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_k7l8o")
+
+[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="."]
+anchors_preset = -1
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.561728
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Crosshair_Text" type="Label" parent="AspectRatioContainer2"]
+layout_mode = 2
+text = "Promt_Text"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Finte_state_machine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+script = ExtResource("2_4kmkc")
+current_state = NodePath("../States/state_crosshair_clear")
+
+[node name="States" type="Node" parent="."]
+
+[node name="state_crosshair_clear" type="Node" parent="States" node_paths=PackedStringArray("crosshair_label")]
+script = ExtResource("3_6jcn5")
+crosshair_label = NodePath("../../AspectRatioContainer2/Crosshair_Text")
+
+[node name="state_crosshair_book" type="Node" parent="States"]
+script = ExtResource("4_88sja")
+crosshair_text = "finger reads book"
+
+[node name="state_crosshair_character" type="Node" parent="States"]
+script = ExtResource("5_b40ie")
+crosshair_text = "finger touches character"
+
+[node name="state_crosshair_sign" type="Node" parent="States"]
+script = ExtResource("5_b40ie")
+crosshair_text = "finger reads sign"

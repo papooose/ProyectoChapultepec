@@ -1,5 +1,6 @@
 extends state_crosshair_base
 class_name state_crosshair_clear
+
 @export var crosshair_text: String
 @export var crosshair_label: Label 
 

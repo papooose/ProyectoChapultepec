@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cjmh1lpbn2gpx"]
+
+[ext_resource type="Texture2D" uid="uid://chg7uwttcv0py" path="res://Assets/Assets_3DM/Assets_3DM_Props/3dModel_Props_TestFloor_1_BGS_FirelinkNexus_S2GrassMat.png" id="1_gfyxx"]
+
+[resource]
+resource_name = "Material_GrassFloor"
+cull_mode = 2
+albedo_texture = ExtResource("1_gfyxx")
+metallic_specular = 0.0
+uv1_scale = Vector3(10, 10, 10)
+texture_filter = 2

@@ -71,5 +71,4 @@ script = ExtResource("5_u8ocn")
 [node name="Input_player" type="Node" parent="."]
 script = ExtResource("6_748kp")
 
-[node name="Player_Crosshair" parent="." node_paths=PackedStringArray("player_raycast") instance=ExtResource("11_q2jkr")]
-player_raycast = NodePath("../Player_Body/Head_Holder/Player_Camera/raycast_player")
+[node name="Player_Crosshair" parent="." instance=ExtResource("11_q2jkr")]

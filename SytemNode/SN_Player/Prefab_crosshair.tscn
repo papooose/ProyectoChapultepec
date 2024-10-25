@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://3w2ibpmc3yy7"]
+[gd_scene load_steps=8 format=3 uid="uid://3w2ibpmc3yy7"]
 
 [ext_resource type="Script" path="res://Scripts/Script_SyCrossharir/Script_Crosshair_manager.gd" id="1_c4wlx"]
 [ext_resource type="Texture2D" uid="uid://divnhcor2h455" path="res://Assets/Assets_UI/Assets_UI_Crosshair_1.png" id="1_k7l8o"]
@@ -6,11 +6,13 @@
 [ext_resource type="Script" path="res://Scripts/Script_SyCrossharir/Script_Crosshair_state_clear.gd" id="3_6jcn5"]
 [ext_resource type="Script" path="res://Scripts/Script_SyCrossharir/Script_Crosshair_state_book.gd" id="4_88sja"]
 [ext_resource type="Script" path="res://Scripts/Script_SyCrossharir/Script_Crosshair_state_sign.gd" id="5_b40ie"]
+[ext_resource type="Script" path="res://Scripts/Script_SyCrossharir/Script_Crosshair_state_character.gd" id="7_bywmc"]
 
 [node name="Player_Crosshair" type="CanvasLayer"]
 script = ExtResource("1_c4wlx")
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -19,6 +21,7 @@ grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="TextureRect" type="TextureRect" parent="AspectRatioContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -53,10 +56,10 @@ crosshair_label = NodePath("../../AspectRatioContainer2/Crosshair_Text")
 script = ExtResource("4_88sja")
 crosshair_text = "finger reads book"
 
-[node name="state_crosshair_character" type="Node" parent="States"]
-script = ExtResource("5_b40ie")
-crosshair_text = "finger touches character"
-
 [node name="state_crosshair_sign" type="Node" parent="States"]
 script = ExtResource("5_b40ie")
 crosshair_text = "finger reads sign"
+
+[node name="state_crosshair_character" type="Node" parent="States"]
+script = ExtResource("7_bywmc")
+crosshair_text = "Finger Speaks w character"

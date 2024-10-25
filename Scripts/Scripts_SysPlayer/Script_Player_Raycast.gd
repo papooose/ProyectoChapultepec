@@ -38,11 +38,7 @@ func _check_for_collider()-> void:
 				signal_onsigth_book.emit()
 			if(onsigth_collider is interactable_character):
 				signal_onsigth_character.emit()
-	else: 
-		if(is_looking):
-			signal_onsigth_null.emit()
-			is_looking = false
-			onsigth_collider = null
+
 
 
 func _disable_crosshair()->void:

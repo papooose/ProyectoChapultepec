@@ -1,0 +1,15 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://qt8o05smnrt0"]
+
+[ext_resource type="Shader" path="res://Assets/Assets_Shader_Materials/Shader_Highlilght.gdshader" id="1_whjgd"]
+
+[resource]
+resource_local_to_scene = true
+render_priority = 1
+shader = ExtResource("1_whjgd")
+shader_parameter/shine_color = Color(1, 1, 1, 1)
+shader_parameter/shine_alpha = 1.0
+shader_parameter/cycle_interval = 1.0
+shader_parameter/shine_speed = 10.0
+shader_parameter/shine_width = 40.0
+shader_parameter/shine_angle_x = 90.0
+shader_parameter/shine_angle_y = -90.0
