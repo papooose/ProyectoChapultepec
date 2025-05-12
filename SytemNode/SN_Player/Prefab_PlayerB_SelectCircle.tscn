@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://c6w02aa78v2js"]
+
+[ext_resource type="ArrayMesh" uid="uid://dtvru2ix24q44" path="res://Assets/Assets_3DM/Assets_3DM_Props/3dModel_Props_SelectionCircle_Mesh_SelectionCircle.res" id="1_oijyl"]
+[ext_resource type="Script" path="res://Scripts/Script_SyCrossharir/Script_Crosshair_SelectCircle.gd" id="2_bribm"]
+[ext_resource type="Texture2D" uid="uid://cq2kbeaijmxya" path="res://Assets/Assets_2DTexutres/2D_Texture_Ring_1.png" id="3_d3es2"]
+[ext_resource type="Texture2D" uid="uid://srnu1abwsd3h" path="res://Assets/Assets_2DTexutres/2D_Texture_Ring_2.png" id="4_dc80f"]
+[ext_resource type="Texture2D" uid="uid://cfexwjqdh26ai" path="res://Assets/Assets_2DTexutres/2D_Texture_Ring_3.png" id="5_lbfc2"]
+
+[node name="Player_Select_Circle" type="MeshInstance3D"]
+mesh = ExtResource("1_oijyl")
+script = ExtResource("2_bribm")
+unselected_alpha = 1.0
+unselected_speed = Vector2(1, 0)
+unselected_aperture = 0.22
+unselected_texture = ExtResource("3_d3es2")
+unselected_color = Color(0.982343, 0.982342, 0.982342, 1)
+selected_alpha = 1.0
+selected_speed = Vector2(1, 0)
+selected_aperture = 0.1
+selected_texture = ExtResource("4_dc80f")
+selected_color = Color(0.923214, 0.403016, 0.337527, 1)
+carrying_alpha = 0.7
+carrying_speed = Vector2(1, 0)
+carrying_aperture = 0.5
+carrying_texture = ExtResource("5_lbfc2")
+carrying_color = Color(0.277542, 0.798882, 0.378011, 1)

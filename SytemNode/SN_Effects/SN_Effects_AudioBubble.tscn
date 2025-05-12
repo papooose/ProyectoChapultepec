@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://cm633nrctlju2"]
+
+[ext_resource type="Script" path="res://Scripts/Scripts_SFX/Scripts_SFX_SoundBubble.gd" id="1_j17qe"]
+[ext_resource type="AudioStream" uid="uid://dak0mcc0dwncd" path="res://Assets/Assets_SFX/SFX_TestSounds/SFX_Test2.mp3" id="2_jb0wi"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_kf3jw"]
+
+[node name="SN_Effects_AudioBubble" type="AudioStreamPlayer3D"]
+volume_db = 6.0
+unit_size = 30.0
+max_db = 6.0
+autoplay = true
+bus = &"Player"
+emission_angle_enabled = true
+script = ExtResource("1_j17qe")
+base_sound = ExtResource("2_jb0wi")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_kf3jw")
+
+[node name="Ground_Cast" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.865, 0)
+collision_mask = 2

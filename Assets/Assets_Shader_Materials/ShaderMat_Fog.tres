@@ -1,0 +1,32 @@
+[gd_resource type="ShaderMaterial" load_steps=8 format=3 uid="uid://cbs33ych0s4xo"]
+
+[ext_resource type="Shader" path="res://Assets/Assets_Shader_Materials/ShaderCode_Fog.gdshader" id="1_iylaj"]
+[ext_resource type="Texture2D" uid="uid://ca1tqm7i0vupq" path="res://Assets/Assets_2DTexutres/parchment_alpha.png" id="2_uvg1k"]
+
+[sub_resource type="Gradient" id="Gradient_eel6v"]
+colors = PackedColorArray(0, 0, 0, 1, 1, 0.239944, 0.231224, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_va7po"]
+gradient = SubResource("Gradient_eel6v")
+
+[sub_resource type="Gradient" id="Gradient_xqbfu"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_w5c6m"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_g0kcq"]
+width = 128
+height = 128
+generate_mipmaps = false
+seamless = true
+color_ramp = SubResource("Gradient_xqbfu")
+noise = SubResource("FastNoiseLite_w5c6m")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_iylaj")
+shader_parameter/warp_ScreenSpace = true
+shader_parameter/emission_strength = 1.0
+shader_parameter/burn = 0.42
+shader_parameter/texture_albedo = SubResource("NoiseTexture2D_g0kcq")
+shader_parameter/noise = ExtResource("2_uvg1k")
+shader_parameter/gradient = SubResource("GradientTexture1D_va7po")

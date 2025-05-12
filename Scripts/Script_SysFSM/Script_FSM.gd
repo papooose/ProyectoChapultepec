@@ -14,7 +14,7 @@ func _ready()->void:
 
 
 func _change_state(new_state: state_Base)->void:
-	print("Changing to: " + String(new_state.name))
+	#print("Changing to: " + String(new_state.name))
 	last_state = current_state
 	if last_state is state_Base:
 		if(!first_state):

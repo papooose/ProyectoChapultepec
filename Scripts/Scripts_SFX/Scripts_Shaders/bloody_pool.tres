@@ -1,0 +1,65 @@
+[gd_resource type="Shader" format=3 uid="uid://cjnutuh4ax5sr"]
+
+[resource]
+code = "shader_type spatial;
+
+
+const int TOTAL_BLOOD_DROPS = 64;
+const float BLOOD_ROUGHNESS = 0.05;
+const float HEIGHTMAP_STRENGHT = 0.2;
+const float BLOOD_DENSITY_STRENGHT = 5.0; // honestly, this is just a magic number depending on the heightmap..
+const float BLOOD_BLENDING = 0.15; // Blend between floor texture and blood
+
+
+group_uniforms SetupTheseVariables;
+uniform sampler2D floor_texture:hint_default_white;
+
+uniform sampler2D blood_texture:repeat_disable; // Radial-centered GradientTexture2D or any shape as long as it is blurred and has a white margin (also disable mipmaps from import settings)
+uniform vec3 blood_color:source_color;
+uniform float tiling_range:hint_range(0.0, 10.0, 0.1) = 1.0;
+uniform float blood_merge_factor:hint_range(0.0, 1.0) = 0.2; // Example 0.6: 60% of 'blood_texture' is the actual blood. 40% is the merging area (coalescence effect). Set it depending on your grayscaled 'blood_texture'
+uniform float blood_scale_factor: hint_range(0.0,10.0) =1.0;
+group_uniforms;
+
+group_uniforms ExternallySetted;
+uniform vec2 positions[TOTAL_BLOOD_DROPS];
+uniform float scales[TOTAL_BLOOD_DROPS];
+group_uniforms;
+
+
+vec2 scale_from_center(vec2 uv, float s){
+	uv = (uv-0.5) *2.0;
+	uv*=(1.0/s);
+	return (uv +1.0)* 0.5;
+}
+
+void fragment(){
+	ALBEDO = texture( floor_texture, UV*tiling_range).rgb;//Esto no afecta realmente
+	float blended_pixel = 1.0;
+
+	// This will blend every drop of blod first so it looks more realistic
+	for(int i=0; i<TOTAL_BLOOD_DROPS; i++){
+		if(scales[i] <= 0.01){
+			continue;
+		}
+
+
+		vec2 uv_translated = UV - positions[i] + 0.5;
+		vec2 uv_scaled = scale_from_center( uv_translated, scales[i]);
+		blended_pixel *= texture( blood_texture, uv_scaled).r; //This draws blood too
+	}
+
+
+	// Now apply all properties to the drops of blod
+	for(int i=0; i<TOTAL_BLOOD_DROPS; i++){
+		if(scales[i] <= 0.01){
+			continue;
+		}
+
+		//This draws the blood
+		if(blended_pixel < blood_merge_factor){
+		ALBEDO = blood_color;
+			}
+		}
+	}
+"

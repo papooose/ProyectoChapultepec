@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://b3bd2tl1qya47"]
+
+[ext_resource type="ArrayMesh" uid="uid://dthxihcbvnpa3" path="res://Assets/Assets_3DM/3DM_AndenLinea7/3DM_Linea7_Colliders_PlataformasPeatonales.res" id="1_7gof5"]
+[ext_resource type="Script" path="res://Scripts/Scripts_SFX/Scripts_Shaders/Scripts_SFX_BloodSurface.gd" id="3_ljlyg"]
+[ext_resource type="Script" path="res://Scripts/Scripts_SFX/Scripts_SFX_BloodSource.gd" id="3_ocs5j"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_vnjbv"]
+
+[node name="Stages_Blood_Test_Room" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.055, 0, 0, 0, 0.055, 0, 0, 0, 0.055, 0, 0, 0)
+mesh = ExtResource("1_7gof5")
+script = ExtResource("3_ljlyg")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.993572, 0.0770598, -0.0829262, 0, 0.732543, 0.680721, 0.113203, -0.676345, 0.727834, 0.155, 3.302, 4.28)
+
+[node name="Blood_Source" type="Node3D" parent="." node_paths=PackedStringArray("blood_surface")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.91, 1.8, 2.16)
+script = ExtResource("3_ocs5j")
+blood_surface = NodePath("../MeshInstance3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Blood_Source"]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
+mesh = SubResource("SphereMesh_vnjbv")

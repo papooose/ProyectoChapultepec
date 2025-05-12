@@ -4,8 +4,6 @@ class_name sfx_shadingArrow
 @onready var animation_player: AnimationPlayer = $"3dModel_Props_Arrow_1/AnimationPlayer"
 @onready var nope_sign: sfx_NopeSign = $"3dModel_Props_NopeSign"
 
-var timer: float =0.0
-var timer_limit: float = 1.0
 
 
 func _ready() -> void:

@@ -11,12 +11,15 @@ var question_effect_inst: Node3D
 var xform: Transform3D
 
 @onready var animation_player: AnimationPlayer = $Player_Target_Mesh/AnimationPlayer
-@onready var player_target_raycast: RayCast3D = $Player_Target_Raycast
 @onready var player_point: player_pointer = $"../player_pointer"
+
+
+#This script is called by the moving state script
+#this script dosent have signals
+#this script dosent trigger any audio 
 
 var arrow_array:Array =[]
 
-const INTERACT_RADIUS: int = 20
 
 func _disable_pointer()->void:
 	set_process(false)

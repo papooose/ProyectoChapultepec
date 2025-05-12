@@ -1,12 +1,13 @@
 extends Node3D
 class_name player_pointer 
 
+#this script only tracks the mouse position and makes it available to the rest of components
 
 @onready var player_camera: camera_player_b = $"../player_body/Player_Head/Player_camera"
 
 
 var side_normal: Vector3 = Vector3(-1,0,0)
-var ray_length: float = 100
+@export var ray_length: float = 50
 var valid_target: bool
 #region Position Vars
 var mouse_pos: Vector2
@@ -34,3 +35,4 @@ func _get_mouse_pos()->void:
 	if(!hit_info.is_empty() && hit_info.normal != side_normal):
 		valid_target = true
 	else: valid_target = false
+	#print("Valid Target: ", valid_target)

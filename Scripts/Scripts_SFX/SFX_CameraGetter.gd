@@ -12,7 +12,7 @@ func _set_server()->void:
 	server = UDPServer.new()
 	server.listen(4242) #how do i know how am i supposed to listen to
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	_get_image()
 
 func _get_image()->void:

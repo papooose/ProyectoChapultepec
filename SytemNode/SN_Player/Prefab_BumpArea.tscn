@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://deu7i3yswuoun"]
+
+[ext_resource type="Script" path="res://Scripts/Scripts_SysPlayerB/Scripts_SysPlayerB_PlayerArea/Script_PlayerB_Area_BumpCollider.gd" id="1_kuaiu"]
+[ext_resource type="AudioStream" uid="uid://crq0t5ghoo8e4" path="res://Assets/Assets_SFX/SFX_TestSounds/SFX_Test5.mp3" id="2_3rbg7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_c2vdf"]
+size = Vector3(1.94934, 1, 1.76068)
+
+[node name="Player_BumpArea" type="Area3D"]
+collision_layer = 8
+collision_mask = 8
+input_ray_pickable = false
+script = ExtResource("1_kuaiu")
+bump_noie = ExtResource("2_3rbg7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0542603, 0, -0.042572)
+shape = SubResource("BoxShape3D_c2vdf")
+
+[node name="Bump_Stream_Player" type="AudioStreamPlayer3D" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

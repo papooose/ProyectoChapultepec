@@ -22,11 +22,10 @@ func _enable_inpunt()->void:
 func _pause_game():
 	game_paused = true
 	signal_pause_game.emit()
-	pause_UI.visible = true
+
 func _resume_game():
 	game_paused = false
 	signal_resume_game.emit()
-	pause_UI.visible = false
 
 
 func _handle_input():
@@ -35,7 +34,6 @@ func _handle_input():
 		_resume_game()
 	else:
 		_pause_game()
-		
 
 func _input(_event: InputEvent) -> void:
 	if(Input.is_action_just_pressed("Action_Pause")):

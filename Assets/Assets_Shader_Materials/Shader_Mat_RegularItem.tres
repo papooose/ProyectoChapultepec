@@ -1,19 +1,23 @@
-[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://y41d850urjwm"]
+[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://y41d850urjwm"]
 
 [ext_resource type="Shader" path="res://Assets/Assets_Shader_Materials/Shader_PickUpItem.gdshader" id="1_h2mn0"]
 [ext_resource type="Texture2D" uid="uid://d108l75vh7kx5" path="res://Assets/Assets_2DTexutres/2D_Texture_Noise.png" id="2_4x3m2"]
-[ext_resource type="Texture2D" uid="uid://dl6dym2dpq2q0" path="res://Assets/Assets_3DM/3DM_Arms/Assets_3DM_Arms_tx_eric_sp.png" id="3_pti0e"]
+[ext_resource type="Texture2D" uid="uid://chg7uwttcv0py" path="res://Assets/Assets_3DM/Assets_3DM_Props/3dModel_Props_TestFloor_1_BGS_FirelinkNexus_S2GrassMat.png" id="3_12e2b"]
+[ext_resource type="Texture2D" uid="uid://rqs7xuvr4jif" path="res://Assets/Assets_3DM/Assets_3DM_Props/3DM_Props_gib1_texture.png" id="4_6jf6u"]
 
 [resource]
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("1_h2mn0")
 shader_parameter/active = false
-shader_parameter/flash_color = Color(1, 1, 1, 0.270588)
+shader_parameter/flash_color = Color(1, 1, 1, 0.709804)
+shader_parameter/tilling = Vector2(1, 1)
 shader_parameter/alpha = 1.0
 shader_parameter/tintColor = Color(0.753919, 0.275092, 0.433156, 1)
 shader_parameter/fesnelAmount = 1.4
+shader_parameter/tiling_range = 1.0
+shader_parameter/texuture_a = ExtResource("4_6jf6u")
+shader_parameter/texture_b = ExtResource("3_12e2b")
 shader_parameter/distortionVertex = 0.0
 shader_parameter/speedVertex = 0.105
-shader_parameter/texuture_a = ExtResource("3_pti0e")
 shader_parameter/noiseVertex = ExtResource("2_4x3m2")

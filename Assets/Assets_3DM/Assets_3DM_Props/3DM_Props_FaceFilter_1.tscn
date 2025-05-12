@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bn267atn45d0a"]
+
+[ext_resource type="PackedScene" uid="uid://dkr5gju422uwb" path="res://Assets/Assets_3DM/Assets_3DM_Props/3dModel_Props_FaceFilter.glb" id="1_hk8q4"]
+[ext_resource type="Material" uid="uid://3l1u3wr3aol" path="res://Assets/Assets_Shader_Materials/standard_material_3d_Black.tres" id="2_wooel"]
+
+[node name="3dModel_Props_FaceFilter" instance=ExtResource("1_hk8q4")]
+
+[node name="Mesh_FaceFilter" parent="." index="0"]
+material_override = ExtResource("2_wooel")

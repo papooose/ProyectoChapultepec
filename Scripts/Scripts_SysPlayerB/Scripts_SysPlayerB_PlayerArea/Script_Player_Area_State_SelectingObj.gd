@@ -7,6 +7,8 @@ class_name state_PlayerArea_SelectingObj
 
 @onready var state_clear: state_PlayerArea_Clear = $"../state_PlayerArea_Clear"
 @onready var state_carrying: state_PlayerArea_Carrying = $"../state_PlayerArea_Carrying"
+@onready var target_ring: crosshair_selectring = $"../../Player_Target_Ring"
+
 
 var ocuppied_area:bool = false
 
@@ -14,6 +16,7 @@ func _enter_state()->void:
 	ocuppied_area = false
 	_connect_signals()
 	_highlight_object()
+	target_ring._set_selected()
 func _exit_state()->void:
 	_disconnect_signals()
 
@@ -36,13 +39,18 @@ func _highlight_object()->void:
 		ocuppied_area = true
 		PAM.on_area_body._flash_material()
 func _inquire_object()->void:
-	if PAM.on_area_body is NPC_PickUpItem_Base: PAM.on_area_body._asked_question()
+	if PAM.on_area_body is NPC_PickUpItem_Base: 
+		PAM.on_area_body._asked_question()
+		pass
+	
 func _unselect_object()->void:
 	ocuppied_area = false
 	PAM.on_area_body = null
 	FSM._change_state(state_clear)
 func _pick_up_object()->void:
 	if(PAM.on_area_body is NPC_PickUpItem_Base):
-		PAM.on_area_body._picked_up()
-		FSM._change_state(state_carrying)
+		PAM.carried_item = PAM.on_area_body #Esto es lo que hace que el objeto siga al marcador
+		PAM.on_area_body._picked_up()#esto le envia la señal
+		PAM.on_area_body = null
+		FSM._change_state(state_carrying) #this dosemt change a thing
 	

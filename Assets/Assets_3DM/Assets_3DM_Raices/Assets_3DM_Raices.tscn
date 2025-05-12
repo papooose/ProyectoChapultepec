@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://c2mlp0n31608i"]
+
+[ext_resource type="PackedScene" uid="uid://imr0u0qosyc6" path="res://Assets/Assets_3DM/Assets_3DM_Raices/R3DM_Raices.glb" id="1_yqlie"]
+
+[node name="R3DM_Raices" instance=ExtResource("1_yqlie")]

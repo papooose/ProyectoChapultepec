@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://1le7obn5gkos"]
+
+[ext_resource type="Script" path="res://Scripts/Script_Tools/Script_Tools_AnimatedTextureRect.gd" id="2_oc2qr"]
+[ext_resource type="SpriteFrames" uid="uid://uc06rxv3ywhd" path="res://Assets/Assets_2DTexutres/Assets_2DTextures_Anim_Eye/Anim_Eye_Closing.tres" id="3_16jgy"]
+
+[node name="Monster_Eye" type="CanvasLayer"]
+
+[node name="AnimatedTextureRect" type="TextureRect" parent="."]
+anchors_preset = -1
+anchor_left = 0.270833
+anchor_right = 0.83941
+anchor_bottom = 1.0
+offset_left = -130.0
+offset_right = -130.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_oc2qr")
+sprites = ExtResource("3_16jgy")
+autoplay = true
+Animation = "Anim_Eye_Opened"
+Frame = 1
+"Speed Scale" = 1.0
+metadata/_edit_use_anchors_ = true

@@ -1,0 +1,21 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://wkew00ys6sjs"]
+
+[ext_resource type="Shader" path="res://Assets/Assets_Shader_Materials/ShaderCode_BurningPaper.gdshader" id="1_2ml8m"]
+[ext_resource type="Texture2D" uid="uid://d108l75vh7kx5" path="res://Assets/Assets_2DTexutres/2D_Texture_Noise.png" id="2_ai7xq"]
+[ext_resource type="Texture2D" uid="uid://bk1myluuorwmq" path="res://icon.svg" id="3_8g084"]
+
+[sub_resource type="Gradient" id="Gradient_pvosd"]
+colors = PackedColorArray(0.121217, 0.0376423, 0.0650531, 1, 0.714122, 0, 0.152283, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ksfmg"]
+gradient = SubResource("Gradient_pvosd")
+fill_to = Vector2(1, 0.0042735)
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_2ml8m")
+shader_parameter/emission_strength = 1.0
+shader_parameter/burn = 0.27
+shader_parameter/tex = ExtResource("3_8g084")
+shader_parameter/noise = ExtResource("2_ai7xq")
+shader_parameter/gradient = SubResource("GradientTexture2D_ksfmg")

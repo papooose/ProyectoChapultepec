@@ -1,0 +1,2 @@
+extends state_Base
+class_name state_kinetic_pickUpItem_Distressed

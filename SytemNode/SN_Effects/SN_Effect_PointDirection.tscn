@@ -1,9 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://cpywef7pkpwfe"]
+[gd_scene load_steps=11 format=3 uid="uid://cpywef7pkpwfe"]
 
 [ext_resource type="Script" path="res://Scripts/Scripts_SFX/Script_SFX_ShadingArrow.gd" id="1_g7vf0"]
 [ext_resource type="PackedScene" uid="uid://ciglsal44hodt" path="res://Assets/Assets_3DM/Assets_3DM_Props/3DM_Props_Arrow_1.tscn" id="2_2kb2a"]
 [ext_resource type="Texture2D" uid="uid://cihf806ob7y1h" path="res://Assets/Assets_UI/Assets_UI_Crosshair_2.png" id="2_hyo61"]
-[ext_resource type="Shader" uid="uid://b0vnlhcq0q26u" path="res://Assets/Assets_Shader_Materials/VisualShader_Fade.tres" id="4_ikqbr"]
 [ext_resource type="PackedScene" uid="uid://ce30hcq24c4ix" path="res://SytemNode/SN_Effects/SN_Effects_NopeSign.tscn" id="5_ytvqb"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_7ff02"]
@@ -44,17 +43,18 @@ _data = {
 "RESET": SubResource("Animation_gq5em")
 }
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_beua0"]
-resource_local_to_scene = true
-render_priority = 1
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j8i2t"]
 transparency = 1
-depth_draw_mode = 2
+shading_mode = 0
+specular_mode = 2
+disable_ambient_light = true
+disable_fog = true
+albedo_texture = ExtResource("2_hyo61")
+disable_receive_shadows = true
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_1t4g1"]
+[sub_resource type="QuadMesh" id="QuadMesh_3n5de"]
 resource_local_to_scene = true
-render_priority = 0
-next_pass = SubResource("StandardMaterial3D_beua0")
-shader = ExtResource("4_ikqbr")
+material = SubResource("StandardMaterial3D_j8i2t")
 
 [node name="SnEffectPointDirection" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, -5.96046e-08, 0, 5.96046e-08, 1, 0, 0, 0)
@@ -69,6 +69,8 @@ mesh = SubResource("QuadMesh_7ff02")
 transform = Transform3D(1, 0, 0, 0, 7.45058e-08, 1, 0, -1, 7.45058e-08, 0, 0.666666, 0.666666)
 size = Vector3(1, 1, 1)
 texture_albedo = ExtResource("2_hyo61")
+texture_emission = ExtResource("2_hyo61")
+emission_energy = 1.71
 distance_fade_enabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Decal"]
@@ -80,11 +82,14 @@ autoplay = "Decal_Scale"
 [node name="3dModel_Props_Arrow_1" parent="." instance=ExtResource("2_2kb2a")]
 transform = Transform3D(1, 0, 0, 0, 1.20201e-07, 0.999999, 0, -0.999999, 1.20201e-07, 0, 0.666666, -2.33333)
 
-[node name="Mesh_Prop_Arrow" parent="3dModel_Props_Arrow_1" index="0"]
-material_override = SubResource("ShaderMaterial_1t4g1")
-
 [node name="3dModel_Props_NopeSign" parent="." instance=ExtResource("5_ytvqb")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.5, -2)
 visible = false
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, 4.47035e-08, 0, -4.47035e-08, -1, 0, 0.666666, 0.610554)
+visible = false
+mesh = SubResource("QuadMesh_3n5de")
+skeleton = NodePath("../MeshInstance3D")
 
 [editable path="3dModel_Props_Arrow_1"]

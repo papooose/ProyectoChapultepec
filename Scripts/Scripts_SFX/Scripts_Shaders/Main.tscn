@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://bsif5pyo2s2e2"]
+
+[ext_resource type="Material" uid="uid://m2x6e0qybe4f" path="res://Scripts/Scripts_SFX/Scripts_Shaders/Blood_Surface.tres" id="2_5j54l"]
+[ext_resource type="PackedScene" uid="uid://cahl12qjotv1" path="res://SytemNode/SN_Effects/SN_Effects_Fountain.tscn" id="3_blitj"]
+[ext_resource type="Script" path="res://Scripts/Scripts_SFX/Scripts_Shaders/Scripts_SFX_BloodSurface.gd" id="6_5sn80"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1jmiv"]
+material = ExtResource("2_5j54l")
+
+[sub_resource type="Environment" id="Environment_ki01q"]
+background_mode = 1
+background_color = Color(0.160784, 0, 0, 1)
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+
+[node name="ExampleOfUse" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
+
+[node name="BloodPool" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_1jmiv")
+script = ExtResource("6_5sn80")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.94721, 0.320613, 0, -0.320613, 0.94721, 0, 1.236, 2.344)
+environment = SubResource("Environment_ki01q")
+
+[node name="SN_Effects_Fountain" parent="." node_paths=PackedStringArray("blood_surface") instance=ExtResource("3_blitj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.085, 1.33, 0.415)
+blood_surface = NodePath("../BloodPool")

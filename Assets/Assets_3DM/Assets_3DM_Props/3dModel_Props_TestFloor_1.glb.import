@@ -32,10 +32,15 @@ animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={
-"materials": {
-"Material_GrassFloor": {
-"use_external/enabled": true,
-"use_external/path": "res://Assets/Assets_3DM/Assets_3DM_Props/Material_GrassFloor.tres"
+"meshes": {
+"3dModel_Props_TestFloor_1_Plane": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/path": "res://Assets/Assets_3DM/Assets_3DM_Props/3dModel_Props_TestFloor_1_Plane.res"
 }
 }
 }

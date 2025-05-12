@@ -1,0 +1,17 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://m2x6e0qybe4f"]
+
+[ext_resource type="Shader" uid="uid://cjnutuh4ax5sr" path="res://Scripts/Scripts_SFX/Scripts_Shaders/bloody_pool.tres" id="1_5dowg"]
+[ext_resource type="Texture2D" uid="uid://dl303egth0a2s" path="res://Scripts/Scripts_SFX/Scripts_Shaders/blood_splash_custom.png" id="2_j0vwb"]
+[ext_resource type="Texture2D" uid="uid://daftivjmnwxqw" path="res://Assets/Assets_2DTexutres/floor_albedo.png" id="3_qjh2x"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_5dowg")
+shader_parameter/blood_color = Color(0.396078, 0, 0, 1)
+shader_parameter/tiling_range = 1.0
+shader_parameter/blood_merge_factor = 0.2
+shader_parameter/blood_scale_factor = 1.0
+shader_parameter/floor_texture = ExtResource("3_qjh2x")
+shader_parameter/blood_texture = ExtResource("2_j0vwb")
+shader_parameter/positions = null
+shader_parameter/scales = null

@@ -1,0 +1,108 @@
+[gd_scene load_steps=18 format=3 uid="uid://qltnwbcsjbf3"]
+
+[ext_resource type="Script" path="res://Scripts/Scripts_NPC/Script_NPC_PickUpItem/Script_NPC_PickUpItem.gd" id="1_61025"]
+[ext_resource type="AudioStream" uid="uid://bmmttdnbx0exr" path="res://Assets/Assets_SFX/SFX_TestSounds/SFX_Test4.mp3" id="2_y6qp8"]
+[ext_resource type="AudioStream" uid="uid://crq0t5ghoo8e4" path="res://Assets/Assets_SFX/SFX_TestSounds/SFX_Test5.mp3" id="3_sril6"]
+[ext_resource type="AudioStream" uid="uid://6l4xt8bkko1h" path="res://Assets/Assets_Sound/SFX_SleepingBeast_Plant_Dying.mp3" id="4_ewl56"]
+[ext_resource type="AudioEffectChorus" uid="uid://b7yk00levbj8a" path="res://Assets/Assets_SFX/SFX_CustomAudioFX/SFX_audioEffect_Chorus.tres" id="5_cybb7"]
+[ext_resource type="AudioEffectPitchShift" uid="uid://bob2ocqadba7e" path="res://Assets/Assets_SFX/SFX_CustomAudioFX/SFX_audioEffect_pitchShift.tres" id="6_0cdll"]
+[ext_resource type="AudioEffectReverb" uid="uid://cmggr104b1p3g" path="res://Assets/Assets_SFX/SFX_CustomAudioFX/SFX_audioEffect_Reverb.tres" id="7_h8hhp"]
+[ext_resource type="Material" uid="uid://y41d850urjwm" path="res://Assets/Assets_Shader_Materials/Shader_Mat_RegularItem.tres" id="8_2vw3f"]
+[ext_resource type="ArrayMesh" uid="uid://cypdhsvw6clwx" path="res://Assets/Assets_3DM/Assets_3DM_Plantas/3DM_Plantas_Toronjil_Mesh_Toronjil.res" id="9_s0c40"]
+[ext_resource type="Script" path="res://Scripts/Scripts_SFX/Scripts_SFX_GhostSpawner.gd" id="10_atseu"]
+[ext_resource type="PackedScene" uid="uid://byhsx00nnu2jw" path="res://SytemNode/SN_NPC/SN_PickUpItem_StateLogic.tscn" id="11_f753d"]
+[ext_resource type="ArrayMesh" uid="uid://bulwa7g0v55nd" path="res://Assets/Assets_3DM/Assets_3DM_Props/3dModel_Props_Tomb_A_Mesh_Tomb.res" id="12_mfupu"]
+[ext_resource type="PackedScene" uid="uid://2vuwge3wgh3d" path="res://SytemNode/SN_UI/SN_UI_NPC_DebugDisplay.tscn" id="13_w75go"]
+[ext_resource type="PackedScene" uid="uid://cahl12qjotv1" path="res://SytemNode/SN_Effects/SN_Effects_Fountain.tscn" id="14_c6tkh"]
+[ext_resource type="PackedScene" uid="uid://kcqedal8soaa" path="res://SytemNode/SN_NPC/SN_NPC_AuraEmitterChecker.tscn" id="15_diyvn"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dapxj"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vmi6g"]
+size = Vector3(2, 1.28076, 2.20154)
+
+[node name="SNP_Plant_Toronjil" type="RigidBody3D" node_paths=PackedStringArray("audio_player", "collision_shape", "mesh_shape", "State_logic")]
+collision_layer = 4
+collision_mask = 14
+script = ExtResource("1_61025")
+inquired_sound = ExtResource("2_y6qp8")
+pickedUp_sound = ExtResource("3_sril6")
+dropped_sound = ExtResource("2_y6qp8")
+dead_sound = ExtResource("4_ewl56")
+audio_player = NodePath("ItemAudioPlayer")
+Chorus_FX = ExtResource("5_cybb7")
+Pitch_FX = ExtResource("6_0cdll")
+Reverb_FX = ExtResource("7_h8hhp")
+collision_shape = NodePath("CollisionShape3D")
+mesh_shape = NodePath("MeshInstance3D")
+State_logic = NodePath("PickUpItem_State_Logic")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.392477, 0)
+shape = SubResource("BoxShape3D_dapxj")
+
+[node name="ItemAudioPlayer" type="AudioStreamPlayer3D" parent="."]
+bus = &"Items"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." node_paths=PackedStringArray("ghost_parent")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00950596, 0)
+layers = 2
+material_override = ExtResource("8_2vw3f")
+mesh = ExtResource("9_s0c40")
+skeleton = NodePath("../CollisionShape3D")
+script = ExtResource("10_atseu")
+ghost_parent = NodePath("..")
+ghost_dir = "res://Assets/Assets_3DM/Assets_3DM_Plantas/3DM_Plantas_Toronjil.res"
+
+[node name="PickUpItem_State_Logic" parent="." node_paths=PackedStringArray("pick_up_item") instance=ExtResource("11_f753d")]
+pick_up_item = NodePath("..")
+
+[node name="state_spatial_pickUpItem_OnGround" parent="PickUpItem_State_Logic/Spatial_state_machine" index="0" node_paths=PackedStringArray("aura")]
+aura = NodePath("../../../Aura_Type_A")
+
+[node name="state_emotional_pickUpItem_relaxed" parent="PickUpItem_State_Logic/Emotional_state_machine" index="0"]
+mildlystressed_threshold = 5
+
+[node name="state_emotional_pickUpItem_MildlyStressed" parent="PickUpItem_State_Logic/Emotional_state_machine" index="1"]
+stressed_threshold = 10
+relaxed_threshold = 5
+
+[node name="state_emotional_pickUpItem_Stressed" parent="PickUpItem_State_Logic/Emotional_state_machine" index="2"]
+collapsing_threshold = 15
+mildstressed_threshold = 10
+
+[node name="state_emotional_pickUpItem_Collapsing" parent="PickUpItem_State_Logic/Emotional_state_machine" index="3" node_paths=PackedStringArray("blood_fountain")]
+aboutToDie_threshold = 20
+blood_fountain = NodePath("../../../SN_Effects_Fountain")
+
+[node name="state_emotional_pickUpItem_AboutToDie" parent="PickUpItem_State_Logic/Emotional_state_machine" index="4"]
+dead_threshold = 25
+
+[node name="state_emotional_pickUpItem_Dead" parent="PickUpItem_State_Logic/Emotional_state_machine" index="5" node_paths=PackedStringArray("blood_fountain")]
+blood_fountain = NodePath("../../../SN_Effects_Fountain")
+
+[node name="NPC_MeshSkin" parent="PickUpItem_State_Logic" index="4" node_paths=PackedStringArray("target_mesh", "ghost_spawner")]
+material = ExtResource("8_2vw3f")
+target_mesh = NodePath("../../MeshInstance3D")
+skins_meshes = Array[ArrayMesh]([ExtResource("9_s0c40"), ExtResource("12_mfupu")])
+ghost_spawner = NodePath("../../MeshInstance3D")
+
+[node name="SnUiNpcDebugDisplay" parent="." node_paths=PackedStringArray("FSM") instance=ExtResource("13_w75go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+FSM = NodePath("../PickUpItem_State_Logic/Kinetic_state_machine")
+
+[node name="SnUiNpcDebugDisplay2" parent="." node_paths=PackedStringArray("FSM") instance=ExtResource("13_w75go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+FSM = NodePath("../PickUpItem_State_Logic/Emotional_state_machine")
+
+[node name="SN_Effects_Fountain" parent="." instance=ExtResource("14_c6tkh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+
+[node name="Aura_Type_A" parent="." instance=ExtResource("15_diyvn")]
+
+[node name="CollisionShape3D" parent="Aura_Type_A" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0.645752, -0.0305786)
+shape = SubResource("BoxShape3D_vmi6g")
+
+[editable path="PickUpItem_State_Logic"]
+[editable path="Aura_Type_A"]

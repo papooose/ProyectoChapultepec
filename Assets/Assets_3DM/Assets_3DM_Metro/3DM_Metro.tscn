@@ -1,0 +1,69 @@
+[gd_scene load_steps=15 format=3 uid="uid://cyamhkdqtyyps"]
+
+[ext_resource type="Script" path="res://Scripts/Scripts_Actors/Script_Actor_Train/Script_Actor_Train.gd" id="1_tga3a"]
+[ext_resource type="ArrayMesh" uid="uid://ces7whr00cjve" path="res://Assets/Assets_3DM/Assets_3DM_Metro/3DM_Metro_Mesh_Metro.res" id="1_vtyeq"]
+[ext_resource type="Material" uid="uid://c0nk43bmktw7l" path="res://Assets/Assets_Shader_Materials/ShaderMat_Fade_2.tres" id="2_5vwo5"]
+[ext_resource type="Script" path="res://Scripts/Scripts_Actors/Script_Actor_Train/Script_Actor_TrainState_Initialized.gd" id="3_1uv08"]
+[ext_resource type="Script" path="res://Scripts/Script_SysFSM/Script_FSM.gd" id="3_mos1h"]
+[ext_resource type="Script" path="res://Scripts/Scripts_Actors/Script_Actor_Train/Script_Actor_TrainState_Stopping.gd" id="5_kka1j"]
+[ext_resource type="Script" path="res://Scripts/Scripts_Actors/Script_Actor_Train/Script_Actor_TrainState_Stopped.gd" id="6_40je5"]
+[ext_resource type="Script" path="res://Scripts/Scripts_Actors/Script_Actor_Train/Script_Actor_TrainState_Resuming.gd" id="7_jp61y"]
+[ext_resource type="Script" path="res://Scripts/Scripts_Actors/Script_Actor_Train/Script_Actor_Train_Organ_Mouth.gd" id="8_emuwx"]
+[ext_resource type="AudioStream" uid="uid://b3k4d31qwskmw" path="res://Assets/Assets_Sound/SFX_SleepingBeast_Train_A.mp3" id="9_23ul7"]
+[ext_resource type="AudioStream" uid="uid://lp3u5226f0nb" path="res://Assets/Assets_Sound/SFX_SleepingBeast_Train_B.mp3" id="10_i62i8"]
+[ext_resource type="PackedScene" uid="uid://kcqedal8soaa" path="res://SytemNode/SN_NPC/SN_NPC_AuraEmitterChecker.tscn" id="10_npla0"]
+[ext_resource type="AudioStream" uid="uid://dvdo4kutrn253" path="res://Assets/Assets_Sound/SFX_SleepingBeast_Train_C.mp3" id="11_0apwm"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_igucf"]
+size = Vector3(1, 4.8, 167.397)
+
+[node name="3DM_Metro" type="Node3D"]
+script = ExtResource("1_tga3a")
+life_span = 5.0
+fadeout_time = 3.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -7.34351e-06, 0, 84)
+material_override = ExtResource("2_5vwo5")
+mesh = ExtResource("1_vtyeq")
+
+[node name="Finte_state_machine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+script = ExtResource("3_mos1h")
+current_state = NodePath("../TrainStates/state_train_initialized")
+
+[node name="TrainStates" type="Node" parent="."]
+
+[node name="state_train_initialized" type="Node" parent="TrainStates" node_paths=PackedStringArray("train_var", "FSM", "organ_mouth")]
+script = ExtResource("3_1uv08")
+train_var = NodePath("../..")
+FSM = NodePath("../../Finte_state_machine")
+organ_mouth = NodePath("../../actor_organ_3DMouth")
+
+[node name="state_train_stopping" type="Node" parent="TrainStates" node_paths=PackedStringArray("train_var", "FSM")]
+script = ExtResource("5_kka1j")
+train_var = NodePath("../..")
+FSM = NodePath("../../Finte_state_machine")
+
+[node name="state_train_stopped" type="Node" parent="TrainStates" node_paths=PackedStringArray("train_var", "FSM")]
+script = ExtResource("6_40je5")
+train_var = NodePath("../..")
+FSM = NodePath("../../Finte_state_machine")
+
+[node name="state_train_resuming" type="Node" parent="TrainStates" node_paths=PackedStringArray("train_var", "FSM")]
+script = ExtResource("7_jp61y")
+train_var = NodePath("../..")
+FSM = NodePath("../../Finte_state_machine")
+
+[node name="actor_organ_3DMouth" type="AudioStreamPlayer3D" parent="."]
+bus = &"Trains"
+script = ExtResource("8_emuwx")
+sfx = Array[AudioStreamMP3]([ExtResource("9_23ul7"), ExtResource("10_i62i8"), ExtResource("11_0apwm")])
+
+[node name="Aura_Type_A" parent="." instance=ExtResource("10_npla0")]
+kill_aura = true
+
+[node name="CollisionShape3D" parent="Aura_Type_A" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 83.1987)
+shape = SubResource("BoxShape3D_igucf")
+
+[editable path="Aura_Type_A"]

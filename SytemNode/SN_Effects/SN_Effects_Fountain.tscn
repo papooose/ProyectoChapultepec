@@ -1,0 +1,93 @@
+[gd_scene load_steps=13 format=3 uid="uid://cahl12qjotv1"]
+
+[ext_resource type="Script" path="res://Scripts/Scripts_SFX/Scripts_Shaders/Scripts_SFX_Bloodfountain.gd" id="1_0aopy"]
+[ext_resource type="Texture2D" uid="uid://bk1myluuorwmq" path="res://icon.svg" id="2_wmy4s"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aplhc"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+shading_mode = 0
+albedo_color = Color(0.956863, 0.121569, 0.121569, 1)
+albedo_texture = ExtResource("2_wmy4s")
+texture_filter = 0
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_p553k"]
+_data = [Vector2(0.522168, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.0103383), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_fbcri"]
+curve = SubResource("Curve_p553k")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gfb88"]
+spread = 180.0
+initial_velocity_min = 3.0
+initial_velocity_max = 5.0
+scale_min = 0.09
+scale_max = 0.12
+scale_curve = SubResource("CurveTexture_fbcri")
+
+[sub_resource type="QuadMesh" id="QuadMesh_h17rg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fth8t"]
+transparency = 1
+vertex_color_use_as_albedo = true
+
+[sub_resource type="Gradient" id="Gradient_783dh"]
+offsets = PackedFloat32Array(0.309524, 1)
+colors = PackedColorArray(0.20868, 2.00043e-07, 2.40654e-08, 1, 0.698039, 0.0352941, 0.0627451, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_k3nti"]
+gradient = SubResource("Gradient_783dh")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_llv2b"]
+particle_flag_rotate_y = true
+emission_shape = 1
+emission_sphere_radius = 0.2
+angle_min = 1.07288e-05
+angle_max = 720.0
+angular_velocity_min = -10.0
+angular_velocity_max = 9.99998
+gravity = Vector3(0, 0.1, 0)
+scale_min = 0.2
+scale_max = 0.3
+color = Color(0.729412, 0.223529, 0.223529, 1)
+color_ramp = SubResource("GradientTexture1D_k3nti")
+
+[sub_resource type="SphereMesh" id="SphereMesh_sjcb4"]
+radial_segments = 4
+rings = 3
+
+[node name="SN_Effects_Fountain" type="Node3D"]
+script = ExtResource("1_0aopy")
+
+[node name="BloodParticles" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_aplhc")
+emitting = false
+lifetime = 0.5
+one_shot = true
+speed_scale = 1.3
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_gfb88")
+draw_pass_1 = SubResource("QuadMesh_h17rg")
+
+[node name="SmokeParticles" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_fth8t")
+emitting = false
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_llv2b")
+draw_pass_1 = SubResource("SphereMesh_sjcb4")
+
+[node name="BloodRaycast" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_mask = 2
+
+[connection signal="tree_entered" from="." to="BloodParticles" method="restart"]
+[connection signal="tree_entered" from="." to="SmokeParticles" method="restart"]

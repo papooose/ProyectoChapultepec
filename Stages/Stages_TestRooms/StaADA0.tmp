@@ -1,0 +1,665 @@
+[gd_scene load_steps=38 format=4 uid="uid://dbg8u27tb8mdv"]
+
+[ext_resource type="PackedScene" uid="uid://culboiw3ecjh4" path="res://SytemNode/SN_Settings/SN_Settings_SceneSettings.tscn" id="1_hqpg8"]
+[ext_resource type="PackedScene" uid="uid://dt4qvdff6rc20" path="res://SytemNode/SN_UI/SN_PauseScreen.tscn" id="3_a7fsd"]
+[ext_resource type="Script" path="res://Scripts/Scripts_SysSettings/Script_Settings_Input.gd" id="4_lxesi"]
+[ext_resource type="Script" path="res://Scripts/Scripts_Actors/Script_Actor_SleepingBeast/Script_Actor_SleepingBeast_Organ_Lung.gd" id="6_0qyym"]
+[ext_resource type="PackedScene" uid="uid://ce7asmyms5ykl" path="res://SytemNode/SN_Player/Prefab_PlayerB.tscn" id="7_l3sem"]
+[ext_resource type="PackedScene" uid="uid://d3y1q48rri1ml" path="res://SytemNode/SN_NPC/SN_NPC_PickUpItem_Agave.tscn" id="8_7js2v"]
+[ext_resource type="PackedScene" uid="uid://c2mlp0n31608i" path="res://Assets/Assets_3DM/Assets_3DM_Raices/Assets_3DM_Raices.tscn" id="8_dckui"]
+[ext_resource type="Script" path="res://Scripts/Script_SysFSM/Script_FSM.gd" id="10_ys2tj"]
+[ext_resource type="Script" path="res://Scripts/Scripts_Actors/Script_Actor_SleepingBeast/Script_Actor_SleepingBeast_State_Eye_Awake.gd" id="11_luccd"]
+[ext_resource type="Script" path="res://Scripts/Script_Tools/Script_Tools_AnimatedTextureRect.gd" id="12_mla82"]
+[ext_resource type="Script" path="res://Scripts/Scripts_Actors/Script_Actor_SleepingBeast/Script_Actor_SleepingBeast_State_Eye_Sleeping.gd" id="12_umpub"]
+[ext_resource type="Texture2D" uid="uid://dhc67fsfbdn5m" path="res://Assets/Assets_2DTexutres/Assets_2DTextures_Anim_Eye/Anim_Eye_20.png" id="12_ve5up"]
+[ext_resource type="SpriteFrames" uid="uid://uc06rxv3ywhd" path="res://Assets/Assets_2DTexutres/Assets_2DTextures_Anim_Eye/Anim_Eye_Closing.tres" id="13_ktpv3"]
+[ext_resource type="Script" path="res://Scripts/Scripts_SFX/Script_SFX_TrainSpawner.gd" id="14_5w5u3"]
+[ext_resource type="PackedScene" uid="uid://b0wjgkbu44qc1" path="res://Assets/Assets_3DM/3DM_AndenLinea7/3DM_Linea7.tscn" id="15_63kth"]
+[ext_resource type="Script" path="res://Scripts/Scripts_Actors/Script_Actor_SleepingBeast/Script_Actor_SleepingBeast_State_Eye_Blinking.gd" id="19_r41du"]
+[ext_resource type="Script" path="res://Scripts/Scripts_Actors/Script_Actor_SleepingBeast/Script_Actor_SleepingBeast_State_Heart_Healthy.gd" id="20_j57r3"]
+[ext_resource type="Script" path="res://Scripts/Scripts_Actors/Script_Actor_SleepingBeast/Script_Actor_SleepingBeast_State_Heart_Ill.gd" id="21_83bkj"]
+[ext_resource type="Script" path="res://Scripts/Scripts_Actors/Script_Actor_SleepingBeast/Script_Actor_SleepingBeast_Organ_EyeMouth.gd" id="21_dmqrr"]
+[ext_resource type="Script" path="res://Scripts/Scripts_Actors/Script_Actor_SleepingBeast/Script_Actor_SleepingBeast_State_Heart_DeathsDoor.gd" id="22_6b2ve"]
+[ext_resource type="AudioStream" uid="uid://bto304a1ly15q" path="res://Assets/Assets_Sound/SFX_SleepingBeast_Beast_EyeOpening.mp3" id="22_wtc7a"]
+[ext_resource type="Script" path="res://Scripts/Scripts_Actors/Script_Actor_SleepingBeast/Script_Actor_SleepingBeast_DebugDisplay.gd" id="23_benys"]
+[ext_resource type="AudioStream" uid="uid://bo2i7b3cidb8r" path="res://Assets/Assets_Sound/SFX_SleepingBeast_Beast_EyClosing.mp3" id="23_cijm0"]
+[ext_resource type="Script" path="res://Scripts/Scripts_Actors/Script_Actor_SleepingBeast/Script_Actor_SleepingBeast_Organ_Skin.gd" id="24_c123n"]
+[ext_resource type="Script" path="res://Scripts/Scripts_Actors/Script_Actor_SleepingBeast/Script_ACtor_SleepingBeast_DyingClock.gd" id="25_g5ewv"]
+[ext_resource type="Material" uid="uid://bsdem5dyr6uo0" path="res://Assets/Assets_Shader_Materials/Shader_Mat_RegularSkin.tres" id="25_xj6mo"]
+[ext_resource type="Script" path="res://Scripts/Scripts_Actors/Script_Actor_SleepingBeast/Script_Actor_SleepingBeast_Organ_Wiring.gd" id="26_w3cs6"]
+[ext_resource type="AudioStream" uid="uid://dlh0ckpg3t3kw" path="res://Assets/Assets_Sound/SFX_SleepingBeast_Beast_HealthyResp.mp3" id="27_5frsg"]
+[ext_resource type="Script" path="res://Scripts/Scripts_Actors/Script_Actor_SleepingBeast/Script_Actor_SleepingBeast_Organ_Tiroides.gd" id="27_q6q34"]
+[ext_resource type="AudioStream" uid="uid://gdpd1if32dim" path="res://Assets/Assets_Sound/SFX_SleepingBeast_Beast_IllResp.mp3" id="28_cm60h"]
+[ext_resource type="AudioStream" uid="uid://dny6vakps3hrf" path="res://Assets/Assets_Sound/SFX_SleepingBeast_Beast_DDResp.mp3" id="29_hrs14"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_q4ubj"]
+sky_top_color = Color(0.0120017, 0.509279, 0.548392, 1)
+sky_horizon_color = Color(0.730389, 0.641752, 0.502122, 1)
+ground_bottom_color = Color(0.730884, 0.41071, 0.597529, 1)
+ground_horizon_color = Color(0.74692, 0.650006, 0.300217, 1)
+ground_energy_multiplier = 1.45
+sun_angle_max = 58.47
+
+[sub_resource type="Sky" id="Sky_0cpfv"]
+sky_material = SubResource("ProceduralSkyMaterial_q4ubj")
+
+[sub_resource type="Environment" id="Environment_1uf30"]
+background_mode = 2
+sky = SubResource("Sky_0cpfv")
+ambient_light_color = Color(0.871538, 0.744341, 0.950504, 1)
+ambient_light_energy = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e5rdr"]
+resource_name = "Material.002"
+cull_mode = 2
+albedo_color = Color(0.851071, 0.892282, 0.906332, 1)
+roughness = 0.0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_0e5tv"]
+_surfaces = [{
+"aabb": AABB(-0.0631769, -1.33718, -0.584224, 0.133375, 1.64425, 0.679779),
+"format": 34896613377,
+"index_count": 450,
+"index_data": PackedByteArray("AwALAAQAAwAKAAsAAgAKAAMAAgAJAAoABQANAAYABQAMAA0AAAAIAAEAAAAHAAgAFQAdABYAFQAcAB0ADQATABQADQAMABMACQAPABAACQAIAA8ABAAMAAUABAALAAwAAQAJAAIAAQAIAAkADAASABMADAALABIACgAQABEACgAJABAABwAUAA4ABwANABQACwARABIACwAKABEAEgAaABMAEgAZABoADgAbABUADgAUABsACAAOAA8ACAAHAA4AEAAWABcAEAAPABYAEQAZABIAEQAYABkAFAAaABsAFAATABoAEQAXABgAEQAQABcAJQArACwAJQAkACsAHQAjACQAHQAcACMAGgAgACEAGgAZACAAFQAiABwAFQAbACIAFwAdAB4AFwAWAB0AGwAhACIAGwAaACEAGAAeAB8AGAAXAB4AGQAfACAAGQAYAB8AHAApACMAHAAiACkAJAAqACsAJAAjACoAIAAoACEAIAAnACgAHgAkACUAHgAdACQAKwAxADIAKwAqADEAIAAmACcAIAAfACYAIgAoACkAIgAhACgAHwAlACYAHwAeACUAKAAuAC8AKAAnAC4AIwAwACoAIwApADAAKQAvADAAKQAoAC8ADwAVABYADwAOABUAJgAsAC0AJgAlACwAJwAtAC4AJwAmAC0ALAAyADMALAArADIALwA1ADYALwAuADUAMAA2ADcAMAAvADYAMQA5ADIAMQA4ADkALQAzADQALQAsADMAKgA3ADEAKgAwADcALgA0ADUALgAtADQANwA4ADEANwA+ADgAQAAAAAEAQAA/AAAANgA+ADcANgA9AD4APwBMAEUAPwBGAEwANAA8ADUANAA7ADwABgAHAAAABgANAAcAPgA5ADgAOQA7ADoAOwA9ADwAPQA5AD4AOQA9ADsARAAEAAUARABDAAQAQABGAD8AQABHAEYANQA9ADYANQA8AD0AMgA6ADMAMgA5ADoAMwA7ADQAMwA6ADsAQQABAAIAQQBAAAEAPwAGAAAAPwBFAAYAQwADAAQAQwBCAAMASwBFAEwASwBEAEUAQgACAAMAQgBBAAIAQwBJAEIAQwBKAEkARQAFAAYARQBEAAUARwBMAEYATABKAEsASgBIAEkASABMAEcATABIAEoAQgBIAEEAQgBJAEgAQABIAEcAQABBAEgAQwBLAEoAQwBEAEsA"),
+"lods": [0.0753487, PackedByteArray("PwAHAAEAAQAHAA4AAQAOAA8ADwAOABwAQAA/AAEAQABHAD8APwBHAEwAPwBMABQAFAAHAD8ABwAUAA4ADgAUABwAHAAUACIAHAAiACkAHAApACMAIwApADAAIwAwACoAKgAwADkAMAA+ADkAKwAqADkAOQA6ADMALAA5ADMALAArADkAJQArACwAJQAkACsAJAAjACoAJAAqACsAHgAkACUAHgAdACQAHQAjACQAHQAcACMAEAAdAB4AHAAdABAADwAcABAAEAABAA8AQQABABAAQQBAAAEAQABBAEgAQABIAEcAQQAQABQASgBBABQASgAUAEwAEAAgABQAFAAgACIAIAApACIAIAAQAB8AEAAeAB8AHwAeACUAHwAlACYAIAAfACYAIAAmACcAJgAlACwAIAAnACkAJgAsAC0AJwAmAC0AJwAtAC4AKQAnAC4ALgAtADQAKQAuADAAMAAuADwALgA0ADwAPAA+ADAAMwA8ADQAMwA6ADwALQAzADQALQAsADMAOQA8ADoAPAA5AD4ASABMAEcATABIAEoAQQBKAEgA")],
+"name": "Material.002",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 77,
+"vertex_data": PackedByteArray("FocLwCXNAAAztIa/7dIAAMC6YL6s3wAAY5S2vQfnAAAhXra9B+cAAFE+Kb4G4gAAUT6Gv+3SAAAWh4i8NMkAADO0HrsGzgAAwLr+t6nYAABjlDC2zN4AACFeMLbM3gAAUT5qt5/aAABRPh67Bs4AAG6EapVXwAAA36jWlQLFAAAprsOWT88AACyPTJdA1QAAWGNMl0DVAAClSe+WNdEAAKVJ1pUCxQAA44BpfDbkAADFmax8aecAAGOdQH157gAAOYiVfYzyAABLapV9jPIAAL9YW33H7wAAv1isfGnnAAARf7JniPUAAASSC2je9wAAxZTRaAb9AACnhENp//8AAN1tQ2n//wAAgGD2aPn9AACAYAto3vcAABF/uVPa2gAABJLlUlHcAADFlBFRjt8AAKeEA1Br4QAA3W0DUGvhAACAYLpQJuAAAIBg5VJR3AAAEX+XTOJlAAAEkrZLKWcAAMWUxUn8aQAAp4SmSJ1rAADdbaZInWsAAIBgaUmBagAAgGC2SylnAACxgBcR7xQAAPOYdxC7FwAAeJwWD+gdAADYh0sOeCEAAKxqSw54IQAAkVnVDgsfAACRWXcQuxcAAPZ9xQEAAAAAT41gAcUBAACKj4AArQUAAHyCAADuBwAAB3AAAO4HAAA0ZVcAZQYAADRlYAHFAQAAro815KLHAADS2Dfm5s8AAHHjpuok4gAAPqU17ansAABGTTXtqewAALIZd+uA5QAAshk35ubPAAC2lanskLcAAITy+vDQvQAA//+A+prLAAARsf//jtMAAHNB//+O0wAAAABB/CXOAAAAAPrw0L0AAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_77v2c"]
+resource_name = "R3DM_Raices_Mesh_Raiz_11"
+_surfaces = [{
+"aabb": AABB(-0.0631769, -1.33718, -0.584224, 0.133375, 1.64425, 0.679779),
+"attribute_data": PackedByteArray("hxQkNIcUJDSHFCQ0hxQkNNIQMjXSEDI10hAyNdIQMjW6J9UzuifVM9wMsjbcDLI2lySdM5cknTOXJJ0zlySdM2whfzNsIX8zbCF/M2whfzP9HnQz/R50M/0edDP9HnQzHhqNMx4ajTMeGo0zHhqNMzwVZzc8FWc3PBVnNzwVZzc+Eq84PhKvOD4Srzg+Eq84wSftOMEn7TgfDw47Hw8OO3skrTl7JK05eyStOXskrTkMIY85DCGPOQwhjzkMIY85jx7uOI8e7jiPHu44jx7uOAUaYDcFGmA3BRpgNwUaYDfCGA5SwhgOUsIYDlLCGA5SdBZUUnQWVFJ0FlRSdBZUUrgmyFG4JshRlxOtUpcTrVIlJJNRJSSTUSUkk1ElJJNRbiF8UW4hfFFuIXxRbiF8UXYfiVF2H4lRdh+JUXYfiVEVHMtRFRzLURUcy1EVHMtRnxoBZp8aAWafGgFmnxoBZuYYWmbmGFpm5hhaZuYYWmZ+JIRmfiSEZuEWAmfhFgJnxCKoZsQiqGbEIqhmxCKoZvkgnWb5IJ1m+SCdZvkgnWaiH3Jmoh9yZqIfcmaiH3JmNR0HZjUdB2Y1HQdmNR0HZqAbAXigGwF4oBsBeKAbAXgLGqZ3CxqmdwsapncLGqZ33yNJdt8jSXZdGK12XRitdmki2nVpItp1aSLadWki2nXkION15CDjdeQg43XkION1yR85dskfOXbJHzl2yR85dugdgnfoHYJ36B2Cd+gdgnfmHDyO5hw8juYcPI7mHDyORBtkjkQbZI5EG2SORBtkjmglaY1oJWmNgBmOjoAZjo7+I4qN/iOKjf4jio3+I4qNdSKyjXUiso11IrKNdSKyjVchzo1XIc6NVyHOjVwf/o1cH/6NXB/+jeUh/7flIf+35SH/t+Uh/7eBICy4gSAsuIEgLLiBICy4VCpUt1QqVLfXHnq41x56uNIolrfSKJa30iiWt9IolrcdJ8e3HSfHtx0nx7cdJ8e36CXYt+gl2LfoJdi36CXYt+4j2rfuI9q37iPat+4j2rebJb7wmyW+8JslvvCbJb7wiyP18Isj9fCLI/XwiyP18Jsw+e+bMPnvECE98RAhPfGwLvLvsC7y77Au8u+wLvLvziwD8M4sA/DOLAPwziwD8GArIPBgKyDwYCsg8GArIPCfKGvwnyhr8J8oa/CfKGvwNyiB/6EwRe43KIH/SzFD7/ImtP/yJrT/wTJo72kv9/5fJfv/mTOQ7iYu0/4mLtP+3izP/pkzX+3eLM/+5yvi/ucr4v4GM6zsDyot/w8qLf9LMazsIA51FCAOdRQgDnUUIA51FO4HsxTuB7MU7gezFO4HsxT9LPMR/SzzERIBVxQSAVcU6idSEOonUhDqJ1IQ6idSEK0i+Q+tIvkPrSL5D60i+Q+/HoIQvx6CEL8eghC/HoIQKhffEioX3xIqF98SKhffEgYN+QuWQhz5Bg35C5Q+HP9CB3MKQgdzCrs1+/+bMLcDAwAnB+spXAChMOH66ylcAHUiAwB1IgMAoTCq8ykd2AEpHdgBGjRv7w0VWAgNFVgIlD5v79IQMjU8FWc3whgOUnQWVFIVHMtRoBsBeCAOdRQgDnUU7gezFP0s8xFCB3MKQgdzCnUiAwB1IgMADRVYCA=="),
+"format": 34896613399,
+"index_count": 450,
+"index_data": PackedByteArray("DAAuABIADAAoAC4ACQArAA8ACQAlACsAFAA0ABgAFAAwADQAAwAhAAUAAwAfACEAVwB1AFkAVwBzAHUANQBMAFAANQAxAEwAJgA/AEMAJgAiAD8AEAAyABYAEAAsADIABwAnAAsABwAjACcAMwBJAE8AMwAtAEkAKgBAAEYAKgAkAEAAHQBTADkAHQA3AFMALwBEAEoALwApAEQASABrAE4ASABlAGsAOABvAFUAOABSAG8AIAA6ADwAIAAeADoAQgBaAF4AQgA+AFoARQBnAEsARQBhAGcAUQBpAG0AUQBNAGkARwBcAGIARwBBAFwAlwCsALAAlwCTAKwAdACOAJAAdAByAI4AagCAAIYAagBkAIAAVACKAHAAVABuAIoAXwB3AHsAXwBbAHcAbACFAIkAbABoAIUAYwB5AH8AYwBdAHkAZgB9AIMAZgBgAH0AcQClAI0AcQCLAKUAkQCoAKoAkQCPAKgAgQCiAIcAgQCdAKIAegCSAJYAegB2AJIAqwDEAMYAqwCpAMQAggCZAJ8AggB8AJkAiACgAKMAiACEAKAAfgCUAJoAfgB4AJQAoQC3AL0AoQCcALcAjADBAKcAjACkAMEAowC6AL4AowCgALoAPQBWAFgAPQA7AFYAmwCuALQAmwCVAK4AngCyALgAngCYALIAsQDJAM0AsQCtAMkAvADTANkAvAC2ANMAvwDWANoAvwC7ANYAxQDiAMcAxQDgAOIAtQDKANAAtQCvAMoApgDdAMMApgDAAN0AuQDPANUAuQCzAM8A3ADeAMIA3ADxAN4A9wACAAQA9wD1AAIA1wDwANsA1wDtAPAA8wAiAQ0B8wAPASIBzgDsANQAzgDoAOwAGgAcAAAAGgA2ABwA8gDhAN8A4QDnAOQA5wDvAOsA7wDhAPIA4QDvAOcACgERABcACgEEAREA+AARAfYA+AATAREB0gDuANgA0gDqAO4AyADmAMwAyADjAOYAywDpANEAywDlAOkA/gAGAAoA/gD6AAYA9AAbAAEA9AAOARsABQENABMABQH/AA0AHgEMASEBHgEIAQwBAQEIAA4AAQH7AAgABgEYAQABBgEcARgBCwEVABkACwEHARUAEgEjARABIwEdASABHQEVARkBFQEjARIBIwEVAR0BAgEWAfwAAgEaARYB+QAXARQB+QD9ABcBAwEfARsBAwEJAR8B"),
+"lods": [0.0753487, PackedByteArray("KgElAQQABAAlAToABAA6ADwAPAAmASkB9wD1AAQA9wAuASsBKgEuATIBKgEyASgBKAElASoBJQEoATgAOAAoAXAAcAAoAYoAcACKAKQAcACkAIwAjACkAMAAjADAAKYApgDAAOIAwADxAOIAqgCmAOIA4gDmAMwAsADiAMwAsACqAOIAlgCqALAAlgCQAKoAkACMAKgAkACoAKoAegCQAJYAegB0AJAAdACOAJAAdAByAI4AQgB0AHoAcAB0AEIAPABwAEIAQgAkAScB/QAkAUIA/QAsASQBLAH9ABcBLAEXAS8B+wBAAFAAMAH7AFAAMAFQACEBQACAAFAAUACAAIgAgACjAIgAgABAAHwAQAB4AHwAfAB4AJQAfACUAJoAgAB8AJgAgACYAJ8AmACUAK4AgACcAKMAmACuALIAnACYALIAnACyALgAowCcALYAtgCyAM4AowC2AL4AvgC2AOoAtgDOAOoA6gDwAL4AygDqAM4AygDlAOoAtQDKAM4AtQCuAMoA4QDrAOQA6wDhAPIAFQEjARIBIwEVAR0BLQExARYB")],
+"material": SubResource("StandardMaterial3D_e5rdr"),
+"name": "Material.002",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 307,
+"vertex_data": PackedByteArray("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")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_0e5tv")
+
+[node name="StagesTestRooms1" type="Node3D"]
+
+[node name="Scene_Settings" parent="." instance=ExtResource("1_hqpg8")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1uf30")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.98674, 0.16231, 0, -0.16231, 0.98674, 0, 0, 0)
+visible = false
+light_energy = 2.521
+
+[node name="SN_PauseScreen" parent="." node_paths=PackedStringArray("wiring") instance=ExtResource("3_a7fsd")]
+wiring = NodePath("../Sleeping_Monster_State_Logic/Actor_SleepingBeast_Organ_Wiring")
+
+[node name="input_setting" type="Node" parent="." node_paths=PackedStringArray("pause_UI")]
+script = ExtResource("4_lxesi")
+pause_UI = NodePath("../SN_PauseScreen")
+
+[node name="Prefab_PlayerB" parent="." node_paths=PackedStringArray("pause_input", "organ_wiring") instance=ExtResource("7_l3sem")]
+transform = Transform3D(-0.99448, 0, -0.104928, 0, 1, 0, 0.104928, 0, -0.99448, 0, -0.9, -8.4)
+pause_input = NodePath("../input_setting")
+organ_wiring = NodePath("../Sleeping_Monster_State_Logic/Actor_SleepingBeast_Organ_Wiring")
+
+[node name="3DM_Linea7" parent="." instance=ExtResource("15_63kth")]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 0)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.73259)
+light_color = Color(0.953508, 0.664876, 0.336314, 1)
+light_energy = 10.282
+light_indirect_energy = 11.217
+light_bake_mode = 1
+light_cull_mask = 4294967071
+shadow_enabled = true
+omni_range = 15.977
+
+[node name="PickUpItems" type="Node" parent="."]
+script = ExtResource("6_0qyym")
+
+[node name="NPC_PickUpItem_Agave" parent="PickUpItems" instance=ExtResource("8_7js2v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8, -6.7)
+
+[node name="NPC_PickUpItem_Agave2" parent="PickUpItems" instance=ExtResource("8_7js2v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, -0.8, -6.7)
+
+[node name="NPC_PickUpItem_Agave3" parent="PickUpItems" instance=ExtResource("8_7js2v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, -0.8, -9.6)
+
+[node name="NPC_PickUpItem_Agave4" parent="PickUpItems" instance=ExtResource("8_7js2v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.1, -0.8, -9.6)
+
+[node name="NPC_PickUpItem_Agave5" parent="PickUpItems" instance=ExtResource("8_7js2v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.1, -0.8, -10.4)
+
+[node name="NPC_PickUpItem_Agave6" parent="PickUpItems" instance=ExtResource("8_7js2v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.1, -0.8, -7.4)
+
+[node name="SFX_trainSpawner" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 133.868, 0, -2.89999)
+script = ExtResource("14_5w5u3")
+
+[node name="SFX_trainSpawner2" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -121.3, 0, 2.9)
+script = ExtResource("14_5w5u3")
+
+[node name="Sleeping_Monster_State_Logic" type="Node" parent="."]
+
+[node name="SleepingMonster_Eye_state_machine" type="Node" parent="Sleeping_Monster_State_Logic" node_paths=PackedStringArray("current_state")]
+script = ExtResource("10_ys2tj")
+current_state = NodePath("state_SleepingBeast_Eye_Awake")
+
+[node name="state_SleepingBeast_Eye_Awake" type="Node" parent="Sleeping_Monster_State_Logic/SleepingMonster_Eye_state_machine" node_paths=PackedStringArray("eye_animator")]
+script = ExtResource("11_luccd")
+eye_animator = NodePath("../../../Eye_Container/Eye_Animator")
+min_awake_time_duration = 40.0
+max_awake_time_duration = 60.0
+min_blink_time_duration = 10.0
+max_blink_time_duration = 20.0
+
+[node name="state_SleepingBeast_Eye_Sleeping" type="Node" parent="Sleeping_Monster_State_Logic/SleepingMonster_Eye_state_machine"]
+script = ExtResource("12_umpub")
+
+[node name="state_SleepingBeast_Eye_Blinking" type="Node" parent="Sleeping_Monster_State_Logic/SleepingMonster_Eye_state_machine"]
+script = ExtResource("19_r41du")
+
+[node name="actor_Organ_Eye_Mouth" type="AudioStreamPlayer" parent="Sleeping_Monster_State_Logic/SleepingMonster_Eye_state_machine"]
+volume_db = 1.0
+pitch_scale = 0.4
+script = ExtResource("21_dmqrr")
+sfx = Array[AudioStreamMP3]([ExtResource("23_cijm0"), ExtResource("22_wtc7a")])
+
+[node name="SleepingMonster_Heart_state_machine" type="Node" parent="Sleeping_Monster_State_Logic" node_paths=PackedStringArray("current_state")]
+script = ExtResource("10_ys2tj")
+current_state = NodePath("state_SleepingBeast_Heart_Healthy")
+
+[node name="state_SleepingBeast_Heart_Healthy" type="Node" parent="Sleeping_Monster_State_Logic/SleepingMonster_Heart_state_machine" node_paths=PackedStringArray("eye_animator", "FSM")]
+script = ExtResource("20_j57r3")
+eye_animator = NodePath("../../../Eye_Container/Eye_Animator")
+FSM = NodePath("..")
+
+[node name="state_SleepingBeast_Heart_Ill" type="Node" parent="Sleeping_Monster_State_Logic/SleepingMonster_Heart_state_machine" node_paths=PackedStringArray("eye_animator", "FSM")]
+script = ExtResource("21_83bkj")
+eye_animator = NodePath("../../../Eye_Container/Eye_Animator")
+FSM = NodePath("..")
+
+[node name="state_SleepingBeast_Heart_DeathsDoor" type="Node" parent="Sleeping_Monster_State_Logic/SleepingMonster_Heart_state_machine" node_paths=PackedStringArray("eye_animator", "FSM")]
+script = ExtResource("22_6b2ve")
+eye_animator = NodePath("../../../Eye_Container/Eye_Animator")
+FSM = NodePath("..")
+
+[node name="actor_Organ_MouthHeart" type="AudioStreamPlayer" parent="Sleeping_Monster_State_Logic/SleepingMonster_Heart_state_machine"]
+volume_db = -6.0
+autoplay = true
+bus = &"Beast"
+script = ExtResource("21_dmqrr")
+sfx = Array[AudioStreamMP3]([ExtResource("27_5frsg"), ExtResource("28_cm60h"), ExtResource("29_hrs14")])
+
+[node name="Actor_SleepingBeast_DebugDisplay" type="Control" parent="Sleeping_Monster_State_Logic"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("23_benys")
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Sleeping_Monster_State_Logic/Actor_SleepingBeast_DebugDisplay"]
+z_index = 100
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0199653
+anchor_top = 0.811728
+anchor_right = 0.277778
+anchor_bottom = 0.962963
+grow_vertical = 2
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Eye_Label" type="Label" parent="Sleeping_Monster_State_Logic/Actor_SleepingBeast_DebugDisplay/VBoxContainer"]
+layout_mode = 2
+vertical_alignment = 1
+
+[node name="Heart_Label" type="Label" parent="Sleeping_Monster_State_Logic/Actor_SleepingBeast_DebugDisplay/VBoxContainer"]
+layout_mode = 2
+vertical_alignment = 1
+
+[node name="Health_Label" type="Label" parent="Sleeping_Monster_State_Logic/Actor_SleepingBeast_DebugDisplay/VBoxContainer"]
+layout_mode = 2
+vertical_alignment = 1
+
+[node name="Time_passed" type="Label" parent="Sleeping_Monster_State_Logic/Actor_SleepingBeast_DebugDisplay/VBoxContainer"]
+layout_mode = 2
+vertical_alignment = 1
+
+[node name="Plants_Lost" type="Label" parent="Sleeping_Monster_State_Logic/Actor_SleepingBeast_DebugDisplay/VBoxContainer"]
+layout_mode = 2
+vertical_alignment = 1
+
+[node name="Awake_Label" type="Label" parent="Sleeping_Monster_State_Logic/Actor_SleepingBeast_DebugDisplay/VBoxContainer"]
+layout_mode = 2
+vertical_alignment = 1
+
+[node name="Disconnection_Label" type="Label" parent="Sleeping_Monster_State_Logic/Actor_SleepingBeast_DebugDisplay/VBoxContainer"]
+layout_mode = 2
+vertical_alignment = 1
+
+[node name="Connection_Label" type="Label" parent="Sleeping_Monster_State_Logic/Actor_SleepingBeast_DebugDisplay/VBoxContainer"]
+layout_mode = 2
+vertical_alignment = 1
+
+[node name="Actor_SleepingBeast_Organ_Skin" type="Node" parent="Sleeping_Monster_State_Logic"]
+script = ExtResource("24_c123n")
+skin_material = ExtResource("25_xj6mo")
+
+[node name="Actor_organ_DyingClock" type="Node" parent="Sleeping_Monster_State_Logic"]
+script = ExtResource("25_g5ewv")
+
+[node name="Actor_SleepingBeast_Organ_Wiring" type="Node" parent="Sleeping_Monster_State_Logic"]
+script = ExtResource("26_w3cs6")
+min_disc_freq = 60.0
+
+[node name="Actor_SleepingBeast_Organ_Tiroides" type="Node" parent="Sleeping_Monster_State_Logic"]
+script = ExtResource("27_q6q34")
+
+[node name="Non_Essentials" type="Node" parent="."]
+
+[node name="R3DM_Raices" parent="Non_Essentials" instance=ExtResource("8_dckui")]
+transform = Transform3D(3.00908, 0, 1.78758, 0, 3.5, 0, -1.78758, 0, 3.00908, 0, 5.63997, -3.5)
+
+[node name="Mesh_Raiz_12" parent="Non_Essentials/R3DM_Raices" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.486195, 1.07973)
+
+[node name="Mesh_Raiz_11" parent="Non_Essentials/R3DM_Raices" index="1"]
+transform = Transform3D(0.965926, 0.258819, 0, -0.147701, 0.551227, 0.821178, 0.212537, -0.793197, 0.570672, 0, 0.413096, 1.64893)
+
+[node name="Mesh_Raiz_grande" parent="Non_Essentials/R3DM_Raices" index="2"]
+transform = Transform3D(-0.939693, 0, 0.34202, 0, 1, 0, -0.34202, 0, -0.939693, -1.97734, 0.463776, 1.8427)
+
+[node name="Mesh_Raiz_10" parent="Non_Essentials/R3DM_Raices" index="3"]
+transform = Transform3D(0.940209, 0.191348, -0.281767, 1.49012e-08, 0.827273, 0.561801, 0.340598, -0.52821, 0.777809, -0.190582, 0.349763, 0.206249)
+
+[node name="Mesh_Raiz_9" parent="Non_Essentials/R3DM_Raices" index="4"]
+transform = Transform3D(0.0847287, 0.00714608, -0.0298502, 3.35712e-10, 0.0876405, 0.020981, 0.0306936, -0.0197265, 0.0824003, -0.576359, 0.122012, 1.03305)
+
+[node name="Mesh_Raiz_6" parent="Non_Essentials/R3DM_Raices" index="7"]
+transform = Transform3D(0.0300313, 0.00723758, -0.00812231, 1.39698e-09, 0.0238472, 0.0212496, 0.0108791, -0.0199791, 0.0224213, 0.506768, 0.542777, -1.71876)
+
+[node name="Mesh_Raiz_5" parent="Non_Essentials/R3DM_Raices" index="8"]
+transform = Transform3D(0.0178587, 0, -0.999841, 0, 1, 0, 0.999841, 0, 0.0178587, -0.41461, -0.305884, 0.0542993)
+
+[node name="Mesh_Raiz_4" parent="Non_Essentials/R3DM_Raices" index="9"]
+transform = Transform3D(0.970874, 0.195088, 0.139081, 7.45058e-09, 0.580497, -0.814262, -0.239589, 0.790546, 0.56359, 0.462097, 0.0315156, -1.3514)
+
+[node name="Mesh_Raiz_3" parent="Non_Essentials/R3DM_Raices" index="10"]
+transform = Transform3D(0.0189792, -0.00567525, -0.00388099, -3.00797e-10, 0.0113946, -0.0166626, 0.00687536, 0.0156663, 0.0107133, 0.290036, 0.762217, -1.12048)
+
+[node name="Mesh_Raiz_1" parent="Non_Essentials/R3DM_Raices" index="12"]
+transform = Transform3D(0.940209, 0.152834, -0.304383, -7.45058e-09, 0.893671, 0.448722, 0.340598, -0.421893, 0.840238, 0.687236, 0.428504, 0.131874)
+
+[node name="Mesh_Raiz_13" type="MeshInstance3D" parent="Non_Essentials/R3DM_Raices"]
+transform = Transform3D(1, -1.49012e-08, 0, 5.82077e-09, 0.570672, 0.821178, 0, -0.821178, 0.570672, 1.73867, 0.393588, 2.2027)
+mesh = SubResource("ArrayMesh_77v2c")
+skeleton = NodePath("")
+
+[node name="R3DM_Raices7" parent="Non_Essentials" instance=ExtResource("8_dckui")]
+transform = Transform3D(3.05263, 0, -1.71215, 0, 3.5, 0, 1.71215, 0, 3.05263, -19.5549, 5.63997, 0.243629)
+
+[node name="Mesh_Raiz_12" parent="Non_Essentials/R3DM_Raices7" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.486195, 1.07973)
+
+[node name="Mesh_Raiz_11" parent="Non_Essentials/R3DM_Raices7" index="1"]
+transform = Transform3D(0.965926, 0.258819, 0, -0.147701, 0.551227, 0.821178, 0.212537, -0.793197, 0.570672, 0, 0.413096, 1.64893)
+
+[node name="Mesh_Raiz_grande" parent="Non_Essentials/R3DM_Raices7" index="2"]
+transform = Transform3D(-0.939693, 0, 0.34202, 0, 1, 0, -0.34202, 0, -0.939693, -1.97734, 0.463776, 1.8427)
+
+[node name="Mesh_Raiz_10" parent="Non_Essentials/R3DM_Raices7" index="3"]
+transform = Transform3D(0.940209, 0.191348, -0.281767, 1.49012e-08, 0.827273, 0.561801, 0.340598, -0.52821, 0.777809, -0.190582, 0.349763, 0.206249)
+
+[node name="Mesh_Raiz_9" parent="Non_Essentials/R3DM_Raices7" index="4"]
+transform = Transform3D(0.0847287, 0.00714608, -0.0298502, 3.35712e-10, 0.0876405, 0.020981, 0.0306936, -0.0197265, 0.0824003, -0.576359, 0.122012, 1.03305)
+
+[node name="Mesh_Raiz_6" parent="Non_Essentials/R3DM_Raices7" index="7"]
+transform = Transform3D(0.0300313, 0.00723758, -0.00812231, 1.39698e-09, 0.0238472, 0.0212496, 0.0108791, -0.0199791, 0.0224213, 0.506768, 0.542777, -1.71876)
+
+[node name="Mesh_Raiz_4" parent="Non_Essentials/R3DM_Raices7" index="9"]
+transform = Transform3D(0.970874, 0.195088, 0.139081, 7.45058e-09, 0.580497, -0.814262, -0.239589, 0.790546, 0.56359, 0.462097, 0.0315156, -1.3514)
+
+[node name="Mesh_Raiz_3" parent="Non_Essentials/R3DM_Raices7" index="10"]
+transform = Transform3D(0.0189792, -0.00567525, -0.00388099, -3.00797e-10, 0.0113946, -0.0166626, 0.00687536, 0.0156663, 0.0107133, 0.290036, 0.762217, -1.12048)
+
+[node name="Mesh_Raiz_1" parent="Non_Essentials/R3DM_Raices7" index="12"]
+transform = Transform3D(0.940209, 0.152834, -0.304383, -7.45058e-09, 0.893671, 0.448722, 0.340598, -0.421893, 0.840238, 0.687236, 0.428504, 0.131874)
+
+[node name="Mesh_Raiz_13" type="MeshInstance3D" parent="Non_Essentials/R3DM_Raices7"]
+transform = Transform3D(1, -1.49012e-08, 0, 5.82077e-09, 0.570672, 0.821178, 0, -0.821178, 0.570672, 1.73867, 0.393588, 2.2027)
+mesh = SubResource("ArrayMesh_77v2c")
+skeleton = NodePath("")
+
+[node name="R3DM_Raices8" parent="Non_Essentials" instance=ExtResource("8_dckui")]
+transform = Transform3D(-3.15343, 0, -1.51852, 0, 3.5, 0, 1.51852, 0, -3.15343, -44.7193, 5.63997, 2.18127)
+
+[node name="Mesh_Raiz_12" parent="Non_Essentials/R3DM_Raices8" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.486195, 1.07973)
+
+[node name="Mesh_Raiz_11" parent="Non_Essentials/R3DM_Raices8" index="1"]
+transform = Transform3D(0.965926, 0.258819, 0, -0.147701, 0.551227, 0.821178, 0.212537, -0.793197, 0.570672, 0, 0.413096, 1.64893)
+
+[node name="Mesh_Raiz_grande" parent="Non_Essentials/R3DM_Raices8" index="2"]
+transform = Transform3D(-0.939693, 0, 0.34202, 0, 1, 0, -0.34202, 0, -0.939693, -1.97734, 0.463776, 1.8427)
+
+[node name="Mesh_Raiz_10" parent="Non_Essentials/R3DM_Raices8" index="3"]
+transform = Transform3D(0.940209, 0.191348, -0.281767, 1.49012e-08, 0.827273, 0.561801, 0.340598, -0.52821, 0.777809, -0.190582, 0.349763, 0.206249)
+
+[node name="Mesh_Raiz_9" parent="Non_Essentials/R3DM_Raices8" index="4"]
+transform = Transform3D(0.0847287, 0.00714608, -0.0298502, 3.35712e-10, 0.0876405, 0.020981, 0.0306936, -0.0197265, 0.0824003, -0.576359, 0.122012, 1.03305)
+
+[node name="Mesh_Raiz_6" parent="Non_Essentials/R3DM_Raices8" index="7"]
+transform = Transform3D(0.0300313, 0.00723758, -0.00812231, 1.39698e-09, 0.0238472, 0.0212496, 0.0108791, -0.0199791, 0.0224213, 0.506768, 0.542777, -1.71876)
+
+[node name="Mesh_Raiz_4" parent="Non_Essentials/R3DM_Raices8" index="9"]
+transform = Transform3D(0.970874, 0.195088, 0.139081, 7.45058e-09, 0.580497, -0.814262, -0.239589, 0.790546, 0.56359, 0.462097, 0.0315156, -1.3514)
+
+[node name="Mesh_Raiz_3" parent="Non_Essentials/R3DM_Raices8" index="10"]
+transform = Transform3D(0.0189792, -0.00567525, -0.00388099, -3.00797e-10, 0.0113946, -0.0166626, 0.00687536, 0.0156663, 0.0107133, 0.290036, 0.762217, -1.12048)
+
+[node name="Mesh_Raiz_1" parent="Non_Essentials/R3DM_Raices8" index="12"]
+transform = Transform3D(0.940209, 0.152834, -0.304383, -7.45058e-09, 0.893671, 0.448722, 0.340598, -0.421893, 0.840238, 0.687236, 0.428504, 0.131874)
+
+[node name="Mesh_Raiz_13" type="MeshInstance3D" parent="Non_Essentials/R3DM_Raices8"]
+transform = Transform3D(1, -1.49012e-08, 0, 5.82077e-09, 0.570672, 0.821178, 0, -0.821178, 0.570672, 1.73867, 0.393588, 2.2027)
+mesh = SubResource("ArrayMesh_77v2c")
+skeleton = NodePath("")
+
+[node name="R3DM_Raices9" parent="Non_Essentials" instance=ExtResource("8_dckui")]
+transform = Transform3D(3.15342, 0, 1.51852, 0, 3.5, 0, -1.51852, 0, 3.15342, -68.9325, 5.63997, -3.60915)
+
+[node name="Mesh_Raiz_12" parent="Non_Essentials/R3DM_Raices9" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.486195, 1.07973)
+
+[node name="Mesh_Raiz_11" parent="Non_Essentials/R3DM_Raices9" index="1"]
+transform = Transform3D(0.965926, 0.258819, 0, -0.147701, 0.551227, 0.821178, 0.212537, -0.793197, 0.570672, 0, 0.413096, 1.64893)
+
+[node name="Mesh_Raiz_grande" parent="Non_Essentials/R3DM_Raices9" index="2"]
+transform = Transform3D(-0.939693, 0, 0.34202, 0, 1, 0, -0.34202, 0, -0.939693, -1.97734, 0.463776, 1.8427)
+
+[node name="Mesh_Raiz_10" parent="Non_Essentials/R3DM_Raices9" index="3"]
+transform = Transform3D(0.940209, 0.191348, -0.281767, 1.49012e-08, 0.827273, 0.561801, 0.340598, -0.52821, 0.777809, -0.190582, 0.349763, 0.206249)
+
+[node name="Mesh_Raiz_9" parent="Non_Essentials/R3DM_Raices9" index="4"]
+transform = Transform3D(0.0847287, 0.00714608, -0.0298502, 3.35712e-10, 0.0876405, 0.020981, 0.0306936, -0.0197265, 0.0824003, -0.576359, 0.122012, 1.03305)
+
+[node name="Mesh_Raiz_6" parent="Non_Essentials/R3DM_Raices9" index="7"]
+transform = Transform3D(0.0300313, 0.00723758, -0.00812231, 1.39698e-09, 0.0238472, 0.0212496, 0.0108791, -0.0199791, 0.0224213, 0.506768, 0.542777, -1.71876)
+
+[node name="Mesh_Raiz_4" parent="Non_Essentials/R3DM_Raices9" index="9"]
+transform = Transform3D(0.970874, 0.195088, 0.139081, 7.45058e-09, 0.580497, -0.814262, -0.239589, 0.790546, 0.56359, 0.462097, 0.0315156, -1.3514)
+
+[node name="Mesh_Raiz_3" parent="Non_Essentials/R3DM_Raices9" index="10"]
+transform = Transform3D(0.0189792, -0.00567525, -0.00388099, -3.00797e-10, 0.0113946, -0.0166626, 0.00687536, 0.0156663, 0.0107133, 0.290036, 0.762217, -1.12048)
+
+[node name="Mesh_Raiz_1" parent="Non_Essentials/R3DM_Raices9" index="12"]
+transform = Transform3D(0.940209, 0.152834, -0.304383, -7.45058e-09, 0.893671, 0.448722, 0.340598, -0.421893, 0.840238, 0.687236, 0.428504, 0.131874)
+
+[node name="Mesh_Raiz_13" type="MeshInstance3D" parent="Non_Essentials/R3DM_Raices9"]
+transform = Transform3D(1, -1.49012e-08, 0, 5.82077e-09, 0.570672, 0.821178, 0, -0.821178, 0.570672, 1.73867, 0.393588, 2.2027)
+mesh = SubResource("ArrayMesh_77v2c")
+skeleton = NodePath("")
+
+[node name="R3DM_Raices10" parent="Non_Essentials" instance=ExtResource("8_dckui")]
+transform = Transform3D(-2.44389, 0, -2.50548, 0, 3.5, 0, 2.50548, 0, -2.44389, -92.7175, 5.63997, 3.25698)
+
+[node name="Mesh_Raiz_12" parent="Non_Essentials/R3DM_Raices10" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.486195, 1.07973)
+
+[node name="Mesh_Raiz_11" parent="Non_Essentials/R3DM_Raices10" index="1"]
+transform = Transform3D(0.965926, 0.258819, 0, -0.147701, 0.551227, 0.821178, 0.212537, -0.793197, 0.570672, 0, 0.413096, 1.64893)
+
+[node name="Mesh_Raiz_grande" parent="Non_Essentials/R3DM_Raices10" index="2"]
+transform = Transform3D(-0.939693, 0, 0.34202, 0, 1, 0, -0.34202, 0, -0.939693, -1.97734, 0.463776, 1.8427)
+
+[node name="Mesh_Raiz_10" parent="Non_Essentials/R3DM_Raices10" index="3"]
+transform = Transform3D(0.940209, 0.191348, -0.281767, 1.49012e-08, 0.827273, 0.561801, 0.340598, -0.52821, 0.777809, -0.190582, 0.349763, 0.206249)
+
+[node name="Mesh_Raiz_9" parent="Non_Essentials/R3DM_Raices10" index="4"]
+transform = Transform3D(0.0847287, 0.00714608, -0.0298502, 3.35712e-10, 0.0876405, 0.020981, 0.0306936, -0.0197265, 0.0824003, -0.576359, 0.122012, 1.03305)
+
+[node name="Mesh_Raiz_6" parent="Non_Essentials/R3DM_Raices10" index="7"]
+transform = Transform3D(0.0300313, 0.00723758, -0.00812231, 1.39698e-09, 0.0238472, 0.0212496, 0.0108791, -0.0199791, 0.0224213, 0.506768, 0.542777, -1.71876)
+
+[node name="Mesh_Raiz_4" parent="Non_Essentials/R3DM_Raices10" index="9"]
+transform = Transform3D(0.970874, 0.195088, 0.139081, 7.45058e-09, 0.580497, -0.814262, -0.239589, 0.790546, 0.56359, 0.462097, 0.0315156, -1.3514)
+
+[node name="Mesh_Raiz_3" parent="Non_Essentials/R3DM_Raices10" index="10"]
+transform = Transform3D(0.0189792, -0.00567525, -0.00388099, -3.00797e-10, 0.0113946, -0.0166626, 0.00687536, 0.0156663, 0.0107133, 0.290036, 0.762217, -1.12048)
+
+[node name="Mesh_Raiz_1" parent="Non_Essentials/R3DM_Raices10" index="12"]
+transform = Transform3D(0.940209, 0.152834, -0.304383, -7.45058e-09, 0.893671, 0.448722, 0.340598, -0.421893, 0.840238, 0.687236, 0.428504, 0.131874)
+
+[node name="Mesh_Raiz_13" type="MeshInstance3D" parent="Non_Essentials/R3DM_Raices10"]
+transform = Transform3D(1, -1.49012e-08, 0, 5.82077e-09, 0.570672, 0.821178, 0, -0.821178, 0.570672, 1.73867, 0.393588, 2.2027)
+mesh = SubResource("ArrayMesh_77v2c")
+skeleton = NodePath("")
+
+[node name="R3DM_Raices11" parent="Non_Essentials" instance=ExtResource("8_dckui")]
+transform = Transform3D(-2.44389, 0, -2.50548, 0, 3.5, 0, 2.50548, 0, -2.44389, -113.517, 5.63997, 2.5258)
+
+[node name="Mesh_Raiz_12" parent="Non_Essentials/R3DM_Raices11" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.486195, 1.07973)
+
+[node name="Mesh_Raiz_11" parent="Non_Essentials/R3DM_Raices11" index="1"]
+transform = Transform3D(0.965926, 0.258819, 0, -0.147701, 0.551227, 0.821178, 0.212537, -0.793197, 0.570672, 0, 0.413096, 1.64893)
+
+[node name="Mesh_Raiz_grande" parent="Non_Essentials/R3DM_Raices11" index="2"]
+transform = Transform3D(-0.939693, 0, 0.34202, 0, 1, 0, -0.34202, 0, -0.939693, -1.97734, 0.463776, 1.8427)
+
+[node name="Mesh_Raiz_10" parent="Non_Essentials/R3DM_Raices11" index="3"]
+transform = Transform3D(0.940209, 0.191348, -0.281767, 1.49012e-08, 0.827273, 0.561801, 0.340598, -0.52821, 0.777809, -0.190582, 0.349763, 0.206249)
+
+[node name="Mesh_Raiz_9" parent="Non_Essentials/R3DM_Raices11" index="4"]
+transform = Transform3D(0.0847287, 0.00714608, -0.0298502, 3.35712e-10, 0.0876405, 0.020981, 0.0306936, -0.0197265, 0.0824003, -0.576359, 0.122012, 1.03305)
+
+[node name="Mesh_Raiz_6" parent="Non_Essentials/R3DM_Raices11" index="7"]
+transform = Transform3D(0.0300313, 0.00723758, -0.00812231, 1.39698e-09, 0.0238472, 0.0212496, 0.0108791, -0.0199791, 0.0224213, 0.506768, 0.542777, -1.71876)
+
+[node name="Mesh_Raiz_4" parent="Non_Essentials/R3DM_Raices11" index="9"]
+transform = Transform3D(0.970874, 0.195088, 0.139081, 7.45058e-09, 0.580497, -0.814262, -0.239589, 0.790546, 0.56359, 0.462097, 0.0315156, -1.3514)
+
+[node name="Mesh_Raiz_3" parent="Non_Essentials/R3DM_Raices11" index="10"]
+transform = Transform3D(0.0189792, -0.00567525, -0.00388099, -3.00797e-10, 0.0113946, -0.0166626, 0.00687536, 0.0156663, 0.0107133, 0.290036, 0.762217, -1.12048)
+
+[node name="Mesh_Raiz_1" parent="Non_Essentials/R3DM_Raices11" index="12"]
+transform = Transform3D(0.940209, 0.152834, -0.304383, -7.45058e-09, 0.893671, 0.448722, 0.340598, -0.421893, 0.840238, 0.687236, 0.428504, 0.131874)
+
+[node name="Mesh_Raiz_13" type="MeshInstance3D" parent="Non_Essentials/R3DM_Raices11"]
+transform = Transform3D(1, -1.49012e-08, 0, 5.82077e-09, 0.570672, 0.821178, 0, -0.821178, 0.570672, 1.73867, 0.393588, 2.2027)
+mesh = SubResource("ArrayMesh_77v2c")
+skeleton = NodePath("")
+
+[node name="R3DM_Raices2" parent="Non_Essentials" instance=ExtResource("8_dckui")]
+transform = Transform3D(2.20817, 0, -2.71551, 0, 3.5, 0, 2.71551, 0, 2.20817, 23.6221, 5.63997, -6.40323)
+
+[node name="Mesh_Raiz_12" parent="Non_Essentials/R3DM_Raices2" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.486195, 1.07973)
+
+[node name="Mesh_Raiz_11" parent="Non_Essentials/R3DM_Raices2" index="1"]
+transform = Transform3D(0.965926, 0.258819, 0, -0.147701, 0.551227, 0.821178, 0.212537, -0.793197, 0.570672, 0, 0.413096, 1.64893)
+
+[node name="Mesh_Raiz_grande" parent="Non_Essentials/R3DM_Raices2" index="2"]
+transform = Transform3D(-0.939693, 0, 0.34202, 0, 1, 0, -0.34202, 0, -0.939693, -1.97734, 0.463776, 1.8427)
+
+[node name="Mesh_Raiz_10" parent="Non_Essentials/R3DM_Raices2" index="3"]
+transform = Transform3D(0.940209, 0.191348, -0.281767, 1.49012e-08, 0.827273, 0.561801, 0.340598, -0.52821, 0.777809, -0.190582, 0.349763, 0.206249)
+
+[node name="Mesh_Raiz_9" parent="Non_Essentials/R3DM_Raices2" index="4"]
+transform = Transform3D(0.0847287, 0.00714608, -0.0298502, 3.35712e-10, 0.0876405, 0.020981, 0.0306936, -0.0197265, 0.0824003, -0.576359, 0.122012, 1.03305)
+
+[node name="Mesh_Raiz_6" parent="Non_Essentials/R3DM_Raices2" index="7"]
+transform = Transform3D(0.0300313, 0.00723758, -0.00812231, 1.39698e-09, 0.0238472, 0.0212496, 0.0108791, -0.0199791, 0.0224213, 0.506768, 0.542777, -1.71876)
+
+[node name="Mesh_Raiz_4" parent="Non_Essentials/R3DM_Raices2" index="9"]
+transform = Transform3D(0.970874, 0.195088, 0.139081, 7.45058e-09, 0.580497, -0.814262, -0.239589, 0.790546, 0.56359, 0.462097, 0.0315156, -1.3514)
+
+[node name="Mesh_Raiz_3" parent="Non_Essentials/R3DM_Raices2" index="10"]
+transform = Transform3D(0.0189792, -0.00567525, -0.00388099, -3.00797e-10, 0.0113946, -0.0166626, 0.00687536, 0.0156663, 0.0107133, 0.290036, 0.762217, -1.12048)
+
+[node name="Mesh_Raiz_1" parent="Non_Essentials/R3DM_Raices2" index="12"]
+transform = Transform3D(0.940209, 0.152834, -0.304383, -7.45058e-09, 0.893671, 0.448722, 0.340598, -0.421893, 0.840238, 0.687236, 0.428504, 0.131874)
+
+[node name="Mesh_Raiz_13" type="MeshInstance3D" parent="Non_Essentials/R3DM_Raices2"]
+transform = Transform3D(1, -1.49012e-08, 0, 5.82077e-09, 0.570672, 0.821178, 0, -0.821178, 0.570672, 1.73867, 0.393588, 2.2027)
+mesh = SubResource("ArrayMesh_77v2c")
+skeleton = NodePath("")
+
+[node name="R3DM_Raices3" parent="Non_Essentials" instance=ExtResource("8_dckui")]
+transform = Transform3D(-2.71551, 0, -2.20817, 0, 3.5, 0, 2.20817, 0, -2.71551, 35.8835, 5.63997, 2.57292)
+
+[node name="Mesh_Raiz_12" parent="Non_Essentials/R3DM_Raices3" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.486195, 1.07973)
+
+[node name="Mesh_Raiz_11" parent="Non_Essentials/R3DM_Raices3" index="1"]
+transform = Transform3D(0.965926, 0.258819, 0, -0.147701, 0.551227, 0.821178, 0.212537, -0.793197, 0.570672, 0, 0.413096, 1.64893)
+
+[node name="Mesh_Raiz_grande" parent="Non_Essentials/R3DM_Raices3" index="2"]
+transform = Transform3D(-0.939693, 0, 0.34202, 0, 1, 0, -0.34202, 0, -0.939693, -1.97734, 0.463776, 1.8427)
+
+[node name="Mesh_Raiz_10" parent="Non_Essentials/R3DM_Raices3" index="3"]
+transform = Transform3D(0.940209, 0.191348, -0.281767, 1.49012e-08, 0.827273, 0.561801, 0.340598, -0.52821, 0.777809, -0.190582, 0.349763, 0.206249)
+
+[node name="Mesh_Raiz_9" parent="Non_Essentials/R3DM_Raices3" index="4"]
+transform = Transform3D(0.0847287, 0.00714608, -0.0298502, 3.35712e-10, 0.0876405, 0.020981, 0.0306936, -0.0197265, 0.0824003, -0.576359, 0.122012, 1.03305)
+
+[node name="Mesh_Raiz_6" parent="Non_Essentials/R3DM_Raices3" index="7"]
+transform = Transform3D(0.0300313, 0.00723758, -0.00812231, 1.39698e-09, 0.0238472, 0.0212496, 0.0108791, -0.0199791, 0.0224213, 0.506768, 0.542777, -1.71876)
+
+[node name="Mesh_Raiz_4" parent="Non_Essentials/R3DM_Raices3" index="9"]
+transform = Transform3D(0.970874, 0.195088, 0.139081, 7.45058e-09, 0.580497, -0.814262, -0.239589, 0.790546, 0.56359, 0.462097, 0.0315156, -1.3514)
+
+[node name="Mesh_Raiz_3" parent="Non_Essentials/R3DM_Raices3" index="10"]
+transform = Transform3D(0.0189792, -0.00567525, -0.00388099, -3.00797e-10, 0.0113946, -0.0166626, 0.00687536, 0.0156663, 0.0107133, 0.290036, 0.762217, -1.12048)
+
+[node name="Mesh_Raiz_1" parent="Non_Essentials/R3DM_Raices3" index="12"]
+transform = Transform3D(0.940209, 0.152834, -0.304383, -7.45058e-09, 0.893671, 0.448722, 0.340598, -0.421893, 0.840238, 0.687236, 0.428504, 0.131874)
+
+[node name="Mesh_Raiz_13" type="MeshInstance3D" parent="Non_Essentials/R3DM_Raices3"]
+transform = Transform3D(1, -1.49012e-08, 0, 5.82077e-09, 0.570672, 0.821178, 0, -0.821178, 0.570672, 1.73867, 0.393588, 2.2027)
+mesh = SubResource("ArrayMesh_77v2c")
+skeleton = NodePath("")
+
+[node name="R3DM_Raices4" parent="Non_Essentials" instance=ExtResource("8_dckui")]
+transform = Transform3D(-3.3943, 0, -0.85366, 0, 3.5, 0, 0.85366, 0, -3.3943, 51.3928, 5.63997, -0.119426)
+
+[node name="Mesh_Raiz_12" parent="Non_Essentials/R3DM_Raices4" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.486195, 1.07973)
+
+[node name="Mesh_Raiz_11" parent="Non_Essentials/R3DM_Raices4" index="1"]
+transform = Transform3D(0.965926, 0.258819, 0, -0.147701, 0.551227, 0.821178, 0.212537, -0.793197, 0.570672, 0, 0.413096, 1.64893)
+
+[node name="Mesh_Raiz_grande" parent="Non_Essentials/R3DM_Raices4" index="2"]
+transform = Transform3D(-0.939693, 0, 0.34202, 0, 1, 0, -0.34202, 0, -0.939693, -1.97734, 0.463776, 1.8427)
+
+[node name="Mesh_Raiz_10" parent="Non_Essentials/R3DM_Raices4" index="3"]
+transform = Transform3D(0.940209, 0.191348, -0.281767, 1.49012e-08, 0.827273, 0.561801, 0.340598, -0.52821, 0.777809, -0.190582, 0.349763, 0.206249)
+
+[node name="Mesh_Raiz_9" parent="Non_Essentials/R3DM_Raices4" index="4"]
+transform = Transform3D(0.0847287, 0.00714608, -0.0298502, 3.35712e-10, 0.0876405, 0.020981, 0.0306936, -0.0197265, 0.0824003, -0.576359, 0.122012, 1.03305)
+
+[node name="Mesh_Raiz_6" parent="Non_Essentials/R3DM_Raices4" index="7"]
+transform = Transform3D(0.0300313, 0.00723758, -0.00812231, 1.39698e-09, 0.0238472, 0.0212496, 0.0108791, -0.0199791, 0.0224213, 0.506768, 0.542777, -1.71876)
+
+[node name="Mesh_Raiz_4" parent="Non_Essentials/R3DM_Raices4" index="9"]
+transform = Transform3D(0.970874, 0.195088, 0.139081, 7.45058e-09, 0.580497, -0.814262, -0.239589, 0.790546, 0.56359, 0.462097, 0.0315156, -1.3514)
+
+[node name="Mesh_Raiz_3" parent="Non_Essentials/R3DM_Raices4" index="10"]
+transform = Transform3D(0.0189792, -0.00567525, -0.00388099, -3.00797e-10, 0.0113946, -0.0166626, 0.00687536, 0.0156663, 0.0107133, 0.290036, 0.762217, -1.12048)
+
+[node name="Mesh_Raiz_1" parent="Non_Essentials/R3DM_Raices4" index="12"]
+transform = Transform3D(0.940209, 0.152834, -0.304383, -7.45058e-09, 0.893671, 0.448722, 0.340598, -0.421893, 0.840238, 0.687236, 0.428504, 0.131874)
+
+[node name="Mesh_Raiz_13" type="MeshInstance3D" parent="Non_Essentials/R3DM_Raices4"]
+transform = Transform3D(1, -1.49012e-08, 0, 5.82077e-09, 0.570672, 0.821178, 0, -0.821178, 0.570672, 1.73867, 0.393588, 2.2027)
+mesh = SubResource("ArrayMesh_77v2c")
+skeleton = NodePath("")
+
+[node name="R3DM_Raices5" parent="Non_Essentials" instance=ExtResource("8_dckui")]
+transform = Transform3D(-2.89763, 0, -1.9631, 0, 3.5, 0, 1.9631, 0, -2.89763, 71.469, 5.63997, 1.70317)
+
+[node name="Mesh_Raiz_12" parent="Non_Essentials/R3DM_Raices5" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.486195, 1.07973)
+
+[node name="Mesh_Raiz_11" parent="Non_Essentials/R3DM_Raices5" index="1"]
+transform = Transform3D(0.965926, 0.258819, 0, -0.147701, 0.551227, 0.821178, 0.212537, -0.793197, 0.570672, 0, 0.413096, 1.64893)
+
+[node name="Mesh_Raiz_grande" parent="Non_Essentials/R3DM_Raices5" index="2"]
+transform = Transform3D(-0.939693, 0, 0.34202, 0, 1, 0, -0.34202, 0, -0.939693, -1.97734, 0.463776, 1.8427)
+
+[node name="Mesh_Raiz_10" parent="Non_Essentials/R3DM_Raices5" index="3"]
+transform = Transform3D(0.940209, 0.191348, -0.281767, 1.49012e-08, 0.827273, 0.561801, 0.340598, -0.52821, 0.777809, -0.190582, 0.349763, 0.206249)
+
+[node name="Mesh_Raiz_9" parent="Non_Essentials/R3DM_Raices5" index="4"]
+transform = Transform3D(0.0847287, 0.00714608, -0.0298502, 3.35712e-10, 0.0876405, 0.020981, 0.0306936, -0.0197265, 0.0824003, -0.576359, 0.122012, 1.03305)
+
+[node name="Mesh_Raiz_6" parent="Non_Essentials/R3DM_Raices5" index="7"]
+transform = Transform3D(0.0300313, 0.00723758, -0.00812231, 1.39698e-09, 0.0238472, 0.0212496, 0.0108791, -0.0199791, 0.0224213, 0.506768, 0.542777, -1.71876)
+
+[node name="Mesh_Raiz_4" parent="Non_Essentials/R3DM_Raices5" index="9"]
+transform = Transform3D(0.970874, 0.195088, 0.139081, 7.45058e-09, 0.580497, -0.814262, -0.239589, 0.790546, 0.56359, 0.462097, 0.0315156, -1.3514)
+
+[node name="Mesh_Raiz_3" parent="Non_Essentials/R3DM_Raices5" index="10"]
+transform = Transform3D(0.0189792, -0.00567525, -0.00388099, -3.00797e-10, 0.0113946, -0.0166626, 0.00687536, 0.0156663, 0.0107133, 0.290036, 0.762217, -1.12048)
+
+[node name="Mesh_Raiz_1" parent="Non_Essentials/R3DM_Raices5" index="12"]
+transform = Transform3D(0.940209, 0.152834, -0.304383, -7.45058e-09, 0.893671, 0.448722, 0.340598, -0.421893, 0.840238, 0.687236, 0.428504, 0.131874)
+
+[node name="Mesh_Raiz_13" type="MeshInstance3D" parent="Non_Essentials/R3DM_Raices5"]
+transform = Transform3D(1, -1.49012e-08, 0, 5.82077e-09, 0.570672, 0.821178, 0, -0.821178, 0.570672, 1.73867, 0.393588, 2.2027)
+mesh = SubResource("ArrayMesh_77v2c")
+skeleton = NodePath("")
+
+[node name="Eye_Container" type="AspectRatioContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="Eye_Animator" type="TextureRect" parent="Eye_Container"]
+layout_mode = 2
+texture = ExtResource("12_ve5up")
+expand_mode = 1
+stretch_mode = 4
+script = ExtResource("12_mla82")
+sprites = ExtResource("13_ktpv3")
+autoplay = true
+Animation = "Anim_Eye_Closed"
+Frame = 0
+"Speed Scale" = 1.0
+
+[editable path="Scene_Settings"]
+[editable path="Non_Essentials/R3DM_Raices"]
+[editable path="Non_Essentials/R3DM_Raices7"]
+[editable path="Non_Essentials/R3DM_Raices8"]
+[editable path="Non_Essentials/R3DM_Raices9"]
+[editable path="Non_Essentials/R3DM_Raices10"]
+[editable path="Non_Essentials/R3DM_Raices11"]
+[editable path="Non_Essentials/R3DM_Raices2"]
+[editable path="Non_Essentials/R3DM_Raices3"]
+[editable path="Non_Essentials/R3DM_Raices4"]
+[editable path="Non_Essentials/R3DM_Raices5"]

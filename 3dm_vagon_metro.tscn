@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://bked2tjuauhd2"]
+
+[ext_resource type="PackedScene" uid="uid://cafb1cyaf0v45" path="res://Assets/Assets_3DM/3DM_Vagon/3DM_VagonMetro.glb" id="1_rmv22"]
+[ext_resource type="Material" uid="uid://b5se2r8x4a2dq" path="res://Assets/Assets_Shader_Materials/ShaderMat_Fade.tres" id="2_0c451"]
+[ext_resource type="Material" uid="uid://y41d850urjwm" path="res://Assets/Assets_Shader_Materials/Shader_Mat_RegularItem.tres" id="2_wq4vh"]
+[ext_resource type="Material" uid="uid://c0nk43bmktw7l" path="res://Assets/Assets_Shader_Materials/ShaderMat_Fade_2.tres" id="3_d5ma3"]
+
+[node name="3DM_VagonMetro" instance=ExtResource("1_rmv22")]
+
+[node name="Tren" parent="." index="1"]
+material_override = ExtResource("2_wq4vh")
+
+[node name="Puerta3" parent="." index="4"]
+material_override = ExtResource("2_0c451")
+
+[node name="Puerta4" parent="." index="5"]
+material_override = ExtResource("2_wq4vh")
+
+[node name="Puerta5" parent="." index="6"]
+material_override = ExtResource("2_0c451")
+
+[node name="Puerta6" parent="." index="7"]
+material_override = ExtResource("2_0c451")
+
+[node name="Puerta7" parent="." index="8"]
+material_override = ExtResource("2_0c451")
+
+[node name="Puerta8" parent="." index="9"]
+material_override = ExtResource("2_0c451")
+
+[node name="Asiento_005" parent="." index="10"]
+material_override = ExtResource("2_0c451")
+
+[node name="Ventana1" parent="." index="14"]
+material_override = ExtResource("3_d5ma3")
+
+[node name="Tren_001" parent="." index="15"]
+material_override = ExtResource("2_wq4vh")
+
+[node name="Cube_003" parent="." index="17"]
+material_override = ExtResource("2_wq4vh")
+
+[node name="Cylinder_004" parent="." index="19"]
+material_override = ExtResource("2_0c451")

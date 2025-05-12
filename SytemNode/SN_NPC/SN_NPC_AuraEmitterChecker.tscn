@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://kcqedal8soaa"]
+
+[ext_resource type="Script" path="res://Scripts/Scripts_Auras/Script_Aura_A.gd" id="1_ess8h"]
+
+[node name="Aura_Type_A" type="Area3D"]
+collision_layer = 16
+collision_mask = 16
+input_ray_pickable = false
+script = ExtResource("1_ess8h")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://cedcmmgf084r7"]
+
+[ext_resource type="Shader" path="res://Assets/Assets_Shader_Materials/ShadeCode_LightCircle.gdshader" id="1_yp87p"]
+[ext_resource type="Texture2D" uid="uid://cq2kbeaijmxya" path="res://Assets/Assets_2DTexutres/2D_Texture_Ring_1.png" id="2_iiraq"]
+
+[resource]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("1_yp87p")
+shader_parameter/root_color = Color(0.993053, 0.865509, 0.748489, 1)
+shader_parameter/tip_color = Color(1, 0.03, 0.001, 1)
+shader_parameter/fire_alpha = 1.0
+shader_parameter/fire_speed = Vector2(1, 0)
+shader_parameter/fire_aperture = 0.22
+shader_parameter/tilling = Vector2(3, 2)
+shader_parameter/noise_tex = ExtResource("2_iiraq")

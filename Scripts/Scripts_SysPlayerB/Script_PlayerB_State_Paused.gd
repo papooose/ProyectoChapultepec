@@ -6,6 +6,7 @@ class_name state_playerB_paused
 @onready var player_point: player_target = $"../../Player_Target"
 @onready var player_camera: camera_player_b = $"../../player_body/Player_Head/Player_camera"
 
+#this state only enables and disables movement
 
 
 

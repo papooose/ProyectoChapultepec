@@ -1,0 +1,22 @@
+[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://bsdem5dyr6uo0"]
+
+[ext_resource type="Shader" path="res://Assets/Assets_Shader_Materials/Shader_PickUpItem.gdshader" id="1_8bsig"]
+[ext_resource type="Texture2D" uid="uid://d108l75vh7kx5" path="res://Assets/Assets_2DTexutres/2D_Texture_Noise.png" id="2_kloqx"]
+[ext_resource type="Texture2D" uid="uid://hmh0lhhil318" path="res://Assets/Assets_2DTexutres/2D_Texture_SkinB_Healthy.png" id="3_ecy03"]
+[ext_resource type="Texture2D" uid="uid://8er5apadxik2" path="res://Assets/Assets_2DTexutres/2D_Texture_Skin_Healthy.png" id="4_7e05w"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_8bsig")
+shader_parameter/active = false
+shader_parameter/flash_color = Color(1, 1, 1, 0.270588)
+shader_parameter/tilling = Vector2(1, 1)
+shader_parameter/alpha = 1.0
+shader_parameter/tintColor = Color(0.753919, 0.275092, 0.433156, 1)
+shader_parameter/fesnelAmount = 1.4
+shader_parameter/tiling_range = 6.0
+shader_parameter/texuture_a = ExtResource("3_ecy03")
+shader_parameter/texture_b = ExtResource("4_7e05w")
+shader_parameter/distortionVertex = 0.0
+shader_parameter/speedVertex = 0.105
+shader_parameter/noiseVertex = ExtResource("2_kloqx")

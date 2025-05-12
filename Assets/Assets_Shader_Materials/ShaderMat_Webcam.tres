@@ -1,3 +1,4 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://jesg1p1o7f7j"]
 
 [resource]
+uv1_scale = Vector3(4, 4, 4)

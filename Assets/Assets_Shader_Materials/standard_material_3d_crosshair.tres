@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://qt1psr4unt2w"]
+
+[ext_resource type="Texture2D" uid="uid://cihf806ob7y1h" path="res://Assets/Assets_UI/Assets_UI_Crosshair_2.png" id="1_tcyra"]
+
+[resource]
+transparency = 1
+no_depth_test = true
+shading_mode = 0
+disable_ambient_light = true
+disable_fog = true
+albedo_texture = ExtResource("1_tcyra")
